@@ -30,24 +30,24 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.labelDynamic = new System.Windows.Forms.Label();
-            this.tbSyncs = new System.Windows.Forms.TextBox();
-            this.tbInterval = new System.Windows.Forms.TextBox();
+            this.TextBoxSyncs = new System.Windows.Forms.TextBox();
+            this.TextBoxInterval = new System.Windows.Forms.TextBox();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
             this.labelInterval = new System.Windows.Forms.Label();
             this.labelSyncs = new System.Windows.Forms.Label();
-            this.buttonStartDynamic2 = new System.Windows.Forms.Button();
+            this.ButtonStartDynamic2 = new System.Windows.Forms.Button();
             this.panel4 = new System.Windows.Forms.Panel();
             this.panel3 = new System.Windows.Forms.Panel();
-            this.bClose = new System.Windows.Forms.Button();
+            this.ButtonClose = new System.Windows.Forms.Button();
             this.panel2 = new System.Windows.Forms.Panel();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.buttonPing = new System.Windows.Forms.Button();
-            this.buttonNotifyAdd = new System.Windows.Forms.Button();
-            this.buttonFindHotSwappable = new System.Windows.Forms.Button();
-            this.buttonListModules = new System.Windows.Forms.Button();
-            this.buttonDisconnect = new System.Windows.Forms.Button();
-            this.buttonConnect = new System.Windows.Forms.Button();
-            this.tbOutput = new System.Windows.Forms.TextBox();
+            this.ButtonPing = new System.Windows.Forms.Button();
+            this.ButtonNotifyAdd = new System.Windows.Forms.Button();
+            this.ButtonFindHotSwappable = new System.Windows.Forms.Button();
+            this.ButtonListModules = new System.Windows.Forms.Button();
+            this.ButtonDisconnect = new System.Windows.Forms.Button();
+            this.ButtonConnect = new System.Windows.Forms.Button();
+            this.TextBoxOutput = new System.Windows.Forms.TextBox();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.panel1 = new System.Windows.Forms.Panel();
             this.tableLayoutPanel2.SuspendLayout();
@@ -70,38 +70,38 @@
             this.labelDynamic.Text = "Dynamic 2 Settings";
             this.labelDynamic.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // tbSyncs
+            // TextBoxSyncs
             // 
-            this.tbSyncs.BackColor = System.Drawing.SystemColors.Window;
-            this.tbSyncs.Dock = System.Windows.Forms.DockStyle.Top;
-            this.tbSyncs.Font = new System.Drawing.Font("Calibri", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.tbSyncs.Location = new System.Drawing.Point(3, 53);
-            this.tbSyncs.Name = "tbSyncs";
-            this.tbSyncs.Size = new System.Drawing.Size(273, 33);
-            this.tbSyncs.TabIndex = 6;
-            this.tbSyncs.Text = "100";
-            this.tbSyncs.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.TextBoxSyncs.BackColor = System.Drawing.SystemColors.Window;
+            this.TextBoxSyncs.Dock = System.Windows.Forms.DockStyle.Top;
+            this.TextBoxSyncs.Font = new System.Drawing.Font("Calibri", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.TextBoxSyncs.Location = new System.Drawing.Point(3, 53);
+            this.TextBoxSyncs.Name = "TextBoxSyncs";
+            this.TextBoxSyncs.Size = new System.Drawing.Size(273, 33);
+            this.TextBoxSyncs.TabIndex = 6;
+            this.TextBoxSyncs.Text = "100";
+            this.TextBoxSyncs.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
-            // tbInterval
+            // TextBoxInterval
             // 
-            this.tbInterval.BackColor = System.Drawing.SystemColors.Window;
-            this.tbInterval.Dock = System.Windows.Forms.DockStyle.Top;
-            this.tbInterval.Font = new System.Drawing.Font("Calibri", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.tbInterval.Location = new System.Drawing.Point(282, 53);
-            this.tbInterval.Name = "tbInterval";
-            this.tbInterval.Size = new System.Drawing.Size(273, 33);
-            this.tbInterval.TabIndex = 4;
-            this.tbInterval.Text = "0";
-            this.tbInterval.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.TextBoxInterval.BackColor = System.Drawing.SystemColors.Window;
+            this.TextBoxInterval.Dock = System.Windows.Forms.DockStyle.Top;
+            this.TextBoxInterval.Font = new System.Drawing.Font("Calibri", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.TextBoxInterval.Location = new System.Drawing.Point(282, 53);
+            this.TextBoxInterval.Name = "TextBoxInterval";
+            this.TextBoxInterval.Size = new System.Drawing.Size(273, 33);
+            this.TextBoxInterval.TabIndex = 4;
+            this.TextBoxInterval.Text = "0";
+            this.TextBoxInterval.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // tableLayoutPanel2
             // 
             this.tableLayoutPanel2.ColumnCount = 2;
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel2.Controls.Add(this.tbSyncs, 0, 1);
+            this.tableLayoutPanel2.Controls.Add(this.TextBoxSyncs, 0, 1);
             this.tableLayoutPanel2.Controls.Add(this.labelInterval, 1, 0);
-            this.tableLayoutPanel2.Controls.Add(this.tbInterval, 1, 1);
+            this.tableLayoutPanel2.Controls.Add(this.TextBoxInterval, 1, 1);
             this.tableLayoutPanel2.Controls.Add(this.labelSyncs, 0, 0);
             this.tableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Top;
             this.tableLayoutPanel2.Location = new System.Drawing.Point(0, 41);
@@ -138,21 +138,21 @@
             this.labelSyncs.Text = "Number of syncs:";
             this.labelSyncs.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // buttonStartDynamic2
+            // ButtonStartDynamic2
             // 
-            this.buttonStartDynamic2.BackColor = System.Drawing.Color.PaleGreen;
-            this.buttonStartDynamic2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.buttonStartDynamic2.Font = new System.Drawing.Font("Calibri", 14F);
-            this.buttonStartDynamic2.Location = new System.Drawing.Point(0, 0);
-            this.buttonStartDynamic2.Name = "buttonStartDynamic2";
-            this.buttonStartDynamic2.Size = new System.Drawing.Size(558, 40);
-            this.buttonStartDynamic2.TabIndex = 2;
-            this.buttonStartDynamic2.Text = "START";
-            this.buttonStartDynamic2.UseVisualStyleBackColor = false;
+            this.ButtonStartDynamic2.BackColor = System.Drawing.Color.PaleGreen;
+            this.ButtonStartDynamic2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.ButtonStartDynamic2.Font = new System.Drawing.Font("Calibri", 14F);
+            this.ButtonStartDynamic2.Location = new System.Drawing.Point(0, 0);
+            this.ButtonStartDynamic2.Name = "ButtonStartDynamic2";
+            this.ButtonStartDynamic2.Size = new System.Drawing.Size(558, 40);
+            this.ButtonStartDynamic2.TabIndex = 2;
+            this.ButtonStartDynamic2.Text = "START";
+            this.ButtonStartDynamic2.UseVisualStyleBackColor = false;
             // 
             // panel4
             // 
-            this.panel4.Controls.Add(this.buttonStartDynamic2);
+            this.panel4.Controls.Add(this.ButtonStartDynamic2);
             this.panel4.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel4.Location = new System.Drawing.Point(0, 141);
             this.panel4.Name = "panel4";
@@ -170,21 +170,22 @@
             this.panel3.Size = new System.Drawing.Size(558, 486);
             this.panel3.TabIndex = 6;
             // 
-            // bClose
+            // ButtonClose
             // 
-            this.bClose.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.bClose.Font = new System.Drawing.Font("Calibri", 12F);
-            this.bClose.Location = new System.Drawing.Point(480, 3);
-            this.bClose.Name = "bClose";
-            this.bClose.Size = new System.Drawing.Size(75, 44);
-            this.bClose.TabIndex = 1;
-            this.bClose.Text = "Close";
-            this.bClose.UseVisualStyleBackColor = true;
+            this.ButtonClose.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.ButtonClose.Font = new System.Drawing.Font("Calibri", 12F);
+            this.ButtonClose.Location = new System.Drawing.Point(480, 3);
+            this.ButtonClose.Name = "ButtonClose";
+            this.ButtonClose.Size = new System.Drawing.Size(75, 44);
+            this.ButtonClose.TabIndex = 1;
+            this.ButtonClose.Text = "Close";
+            this.ButtonClose.UseVisualStyleBackColor = true;
+            this.ButtonClose.Click += new System.EventHandler(this.ButtonClose_Click);
             // 
             // panel2
             // 
             this.panel2.Controls.Add(this.pictureBox1);
-            this.panel2.Controls.Add(this.bClose);
+            this.panel2.Controls.Add(this.ButtonClose);
             this.panel2.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.panel2.Location = new System.Drawing.Point(450, 486);
             this.panel2.Name = "panel2";
@@ -202,110 +203,110 @@
             this.pictureBox1.TabIndex = 2;
             this.pictureBox1.TabStop = false;
             // 
-            // buttonPing
+            // ButtonPing
             // 
-            this.buttonPing.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.ButtonPing.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonPing.Font = new System.Drawing.Font("Calibri", 14F);
-            this.buttonPing.Location = new System.Drawing.Point(228, 135);
-            this.buttonPing.Name = "buttonPing";
-            this.buttonPing.Size = new System.Drawing.Size(219, 62);
-            this.buttonPing.TabIndex = 5;
-            this.buttonPing.Text = "Ping";
-            this.buttonPing.UseVisualStyleBackColor = true;
+            this.ButtonPing.Font = new System.Drawing.Font("Calibri", 14F);
+            this.ButtonPing.Location = new System.Drawing.Point(228, 135);
+            this.ButtonPing.Name = "ButtonPing";
+            this.ButtonPing.Size = new System.Drawing.Size(219, 62);
+            this.ButtonPing.TabIndex = 5;
+            this.ButtonPing.Text = "Ping";
+            this.ButtonPing.UseVisualStyleBackColor = true;
             // 
-            // buttonNotifyAdd
+            // ButtonNotifyAdd
             // 
-            this.buttonNotifyAdd.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.ButtonNotifyAdd.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonNotifyAdd.Font = new System.Drawing.Font("Calibri", 14F);
-            this.buttonNotifyAdd.Location = new System.Drawing.Point(3, 135);
-            this.buttonNotifyAdd.Name = "buttonNotifyAdd";
-            this.buttonNotifyAdd.Size = new System.Drawing.Size(219, 62);
-            this.buttonNotifyAdd.TabIndex = 4;
-            this.buttonNotifyAdd.Text = "Notify Add";
-            this.buttonNotifyAdd.UseVisualStyleBackColor = true;
+            this.ButtonNotifyAdd.Font = new System.Drawing.Font("Calibri", 14F);
+            this.ButtonNotifyAdd.Location = new System.Drawing.Point(3, 135);
+            this.ButtonNotifyAdd.Name = "ButtonNotifyAdd";
+            this.ButtonNotifyAdd.Size = new System.Drawing.Size(219, 62);
+            this.ButtonNotifyAdd.TabIndex = 4;
+            this.ButtonNotifyAdd.Text = "Notify Add";
+            this.ButtonNotifyAdd.UseVisualStyleBackColor = true;
             // 
-            // buttonFindHotSwappable
+            // ButtonFindHotSwappable
             // 
-            this.buttonFindHotSwappable.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.ButtonFindHotSwappable.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonFindHotSwappable.Font = new System.Drawing.Font("Calibri", 14F);
-            this.buttonFindHotSwappable.Location = new System.Drawing.Point(228, 69);
-            this.buttonFindHotSwappable.Name = "buttonFindHotSwappable";
-            this.buttonFindHotSwappable.Size = new System.Drawing.Size(219, 60);
-            this.buttonFindHotSwappable.TabIndex = 3;
-            this.buttonFindHotSwappable.Text = "Find Hot Swappable";
-            this.buttonFindHotSwappable.UseVisualStyleBackColor = true;
+            this.ButtonFindHotSwappable.Font = new System.Drawing.Font("Calibri", 14F);
+            this.ButtonFindHotSwappable.Location = new System.Drawing.Point(228, 69);
+            this.ButtonFindHotSwappable.Name = "ButtonFindHotSwappable";
+            this.ButtonFindHotSwappable.Size = new System.Drawing.Size(219, 60);
+            this.ButtonFindHotSwappable.TabIndex = 3;
+            this.ButtonFindHotSwappable.Text = "Find Hot Swappable";
+            this.ButtonFindHotSwappable.UseVisualStyleBackColor = true;
             // 
-            // buttonListModules
+            // ButtonListModules
             // 
-            this.buttonListModules.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.ButtonListModules.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonListModules.Font = new System.Drawing.Font("Calibri", 14F);
-            this.buttonListModules.Location = new System.Drawing.Point(3, 69);
-            this.buttonListModules.Name = "buttonListModules";
-            this.buttonListModules.Size = new System.Drawing.Size(219, 60);
-            this.buttonListModules.TabIndex = 2;
-            this.buttonListModules.Text = "List Modules";
-            this.buttonListModules.UseVisualStyleBackColor = true;
+            this.ButtonListModules.Font = new System.Drawing.Font("Calibri", 14F);
+            this.ButtonListModules.Location = new System.Drawing.Point(3, 69);
+            this.ButtonListModules.Name = "ButtonListModules";
+            this.ButtonListModules.Size = new System.Drawing.Size(219, 60);
+            this.ButtonListModules.TabIndex = 2;
+            this.ButtonListModules.Text = "List Modules";
+            this.ButtonListModules.UseVisualStyleBackColor = true;
             // 
-            // buttonDisconnect
+            // ButtonDisconnect
             // 
-            this.buttonDisconnect.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.ButtonDisconnect.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonDisconnect.Font = new System.Drawing.Font("Calibri", 14F);
-            this.buttonDisconnect.Location = new System.Drawing.Point(228, 3);
-            this.buttonDisconnect.Name = "buttonDisconnect";
-            this.buttonDisconnect.Size = new System.Drawing.Size(219, 60);
-            this.buttonDisconnect.TabIndex = 1;
-            this.buttonDisconnect.Text = "Disconnect";
-            this.buttonDisconnect.UseVisualStyleBackColor = true;
+            this.ButtonDisconnect.Font = new System.Drawing.Font("Calibri", 14F);
+            this.ButtonDisconnect.Location = new System.Drawing.Point(228, 3);
+            this.ButtonDisconnect.Name = "ButtonDisconnect";
+            this.ButtonDisconnect.Size = new System.Drawing.Size(219, 60);
+            this.ButtonDisconnect.TabIndex = 1;
+            this.ButtonDisconnect.Text = "Disconnect";
+            this.ButtonDisconnect.UseVisualStyleBackColor = true;
             // 
-            // buttonConnect
+            // ButtonConnect
             // 
-            this.buttonConnect.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.ButtonConnect.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonConnect.Font = new System.Drawing.Font("Calibri", 14F);
-            this.buttonConnect.Location = new System.Drawing.Point(3, 3);
-            this.buttonConnect.Name = "buttonConnect";
-            this.buttonConnect.Size = new System.Drawing.Size(219, 60);
-            this.buttonConnect.TabIndex = 0;
-            this.buttonConnect.Text = "Connect";
-            this.buttonConnect.UseVisualStyleBackColor = true;
+            this.ButtonConnect.Font = new System.Drawing.Font("Calibri", 14F);
+            this.ButtonConnect.Location = new System.Drawing.Point(3, 3);
+            this.ButtonConnect.Name = "ButtonConnect";
+            this.ButtonConnect.Size = new System.Drawing.Size(219, 60);
+            this.ButtonConnect.TabIndex = 0;
+            this.ButtonConnect.Text = "Connect";
+            this.ButtonConnect.UseVisualStyleBackColor = true;
             // 
-            // tbOutput
+            // TextBoxOutput
             // 
-            this.tbOutput.BackColor = System.Drawing.SystemColors.MenuText;
-            this.tbOutput.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tbOutput.Font = new System.Drawing.Font("Calibri", 12F);
-            this.tbOutput.ForeColor = System.Drawing.Color.Lime;
-            this.tbOutput.Location = new System.Drawing.Point(0, 200);
-            this.tbOutput.Multiline = true;
-            this.tbOutput.Name = "tbOutput";
-            this.tbOutput.ReadOnly = true;
-            this.tbOutput.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.tbOutput.Size = new System.Drawing.Size(450, 337);
-            this.tbOutput.TabIndex = 1;
-            this.tbOutput.WordWrap = false;
+            this.TextBoxOutput.BackColor = System.Drawing.SystemColors.MenuText;
+            this.TextBoxOutput.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.TextBoxOutput.Font = new System.Drawing.Font("Calibri", 12F);
+            this.TextBoxOutput.ForeColor = System.Drawing.Color.Lime;
+            this.TextBoxOutput.Location = new System.Drawing.Point(0, 200);
+            this.TextBoxOutput.Multiline = true;
+            this.TextBoxOutput.Name = "TextBoxOutput";
+            this.TextBoxOutput.ReadOnly = true;
+            this.TextBoxOutput.ScrollBars = System.Windows.Forms.ScrollBars.Both;
+            this.TextBoxOutput.Size = new System.Drawing.Size(450, 337);
+            this.TextBoxOutput.TabIndex = 1;
+            this.TextBoxOutput.WordWrap = false;
             // 
             // tableLayoutPanel1
             // 
             this.tableLayoutPanel1.ColumnCount = 2;
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel1.Controls.Add(this.buttonPing, 1, 2);
-            this.tableLayoutPanel1.Controls.Add(this.buttonNotifyAdd, 0, 2);
-            this.tableLayoutPanel1.Controls.Add(this.buttonFindHotSwappable, 1, 1);
-            this.tableLayoutPanel1.Controls.Add(this.buttonListModules, 0, 1);
-            this.tableLayoutPanel1.Controls.Add(this.buttonDisconnect, 1, 0);
-            this.tableLayoutPanel1.Controls.Add(this.buttonConnect, 0, 0);
+            this.tableLayoutPanel1.Controls.Add(this.ButtonPing, 1, 2);
+            this.tableLayoutPanel1.Controls.Add(this.ButtonNotifyAdd, 0, 2);
+            this.tableLayoutPanel1.Controls.Add(this.ButtonFindHotSwappable, 1, 1);
+            this.tableLayoutPanel1.Controls.Add(this.ButtonListModules, 0, 1);
+            this.tableLayoutPanel1.Controls.Add(this.ButtonDisconnect, 1, 0);
+            this.tableLayoutPanel1.Controls.Add(this.ButtonConnect, 0, 0);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Top;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
@@ -318,7 +319,7 @@
             // 
             // panel1
             // 
-            this.panel1.Controls.Add(this.tbOutput);
+            this.panel1.Controls.Add(this.TextBoxOutput);
             this.panel1.Controls.Add(this.tableLayoutPanel1);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Left;
             this.panel1.Location = new System.Drawing.Point(0, 0);
@@ -354,23 +355,23 @@
         #endregion
 
         private System.Windows.Forms.Label labelDynamic;
-        private System.Windows.Forms.TextBox tbSyncs;
-        private System.Windows.Forms.TextBox tbInterval;
+        private System.Windows.Forms.TextBox TextBoxSyncs;
+        private System.Windows.Forms.TextBox TextBoxInterval;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel2;
         private System.Windows.Forms.Label labelInterval;
         private System.Windows.Forms.Label labelSyncs;
-        private System.Windows.Forms.Button buttonStartDynamic2;
+        private System.Windows.Forms.Button ButtonStartDynamic2;
         private System.Windows.Forms.Panel panel4;
         private System.Windows.Forms.Panel panel3;
-        private System.Windows.Forms.Button bClose;
+        private System.Windows.Forms.Button ButtonClose;
         private System.Windows.Forms.Panel panel2;
-        private System.Windows.Forms.Button buttonPing;
-        private System.Windows.Forms.Button buttonNotifyAdd;
-        private System.Windows.Forms.Button buttonFindHotSwappable;
-        private System.Windows.Forms.Button buttonListModules;
-        private System.Windows.Forms.Button buttonDisconnect;
-        private System.Windows.Forms.Button buttonConnect;
-        private System.Windows.Forms.TextBox tbOutput;
+        private System.Windows.Forms.Button ButtonPing;
+        private System.Windows.Forms.Button ButtonNotifyAdd;
+        private System.Windows.Forms.Button ButtonFindHotSwappable;
+        private System.Windows.Forms.Button ButtonListModules;
+        private System.Windows.Forms.Button ButtonDisconnect;
+        private System.Windows.Forms.Button ButtonConnect;
+        private System.Windows.Forms.TextBox TextBoxOutput;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.PictureBox pictureBox1;
