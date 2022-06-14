@@ -41,9 +41,6 @@ namespace Orbit3App
             this.Close();
         }
 
-        private void TextBoxOutput_TextChanged(object sender, EventArgs e)
-        {
 
-        }
     }
 }
