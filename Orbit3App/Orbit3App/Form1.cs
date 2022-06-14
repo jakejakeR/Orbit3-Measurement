@@ -14,9 +14,11 @@ namespace Orbit3App
 {
     public partial class Form1 : Form
     {
+
+        OrbitServer Orbit;
+
         public Form1()
         {
-            OrbitServer Orbit;
 
             try
             {
@@ -38,9 +40,41 @@ namespace Orbit3App
 
         }
 
+        /// <summary>
+        /// Establishing connection to Orbit Server
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void ButtonConnect_Click(object sender, EventArgs e)
         {
+            if (Orbit.Connected)
+            {
+                ConsoleOut("Already connected to Orbit\r\n");
+            }
+            else
+            {
+                ConsoleOut("Attempting to connect Orbit...\r\n");
+                try
+                {
+                    Orbit.Connect();
+                    ConsoleOut("Connected to Orbit\r\n");
+                    ConsoleOut("Available Networks: " + Orbit.Networks.Count + "\r\n");
 
+                    StringBuilder sb = new StringBuilder();
+
+                    for (int i = 0; i < Orbit.Networks.Count; i++)
+                    {
+                        sb.AppendLine(Orbit.Networks[i].Description);
+                    }
+
+                    String AvailableNetworks = sb.ToString();
+                    ConsoleOut(AvailableNetworks);
+                }
+                catch(Exception Ex)
+                {
+                    ConsoleOut("#ERROR: " + Ex.Message + "\r\n");
+                }
+            }
         }
 
         private void ButtonDisconnect_Click(object sender, EventArgs e)
