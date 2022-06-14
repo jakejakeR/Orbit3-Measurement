@@ -34,7 +34,6 @@ namespace Orbit3App
 
             InitializeComponent();
             this.Text = "Orbit3 Measurement App V" + Assembly.GetExecutingAssembly().GetName().Version.ToString();
-            //ConsoleOut("Hello World!"); //TODO - delete in future (ConsoleOut test)
         }
 
         #region
@@ -117,7 +116,6 @@ namespace Orbit3App
                     // The function returns the number of new modules added to the network
                     int modulesFound = Orbit.Networks[NETINDEX].Modules.FindHotswapped();
                     ConsoleOut("New modules on the network: " + modulesFound + "\r\n");
-                    //TODO
                     InitializeZeroing();
                 }
                 catch (Exception ex)
@@ -278,7 +276,5 @@ namespace Orbit3App
 
         private int[] ArrayOfReadingInCounts;
         private double[] ArrayOfReadingInUnits;
-
-
     }
 }
