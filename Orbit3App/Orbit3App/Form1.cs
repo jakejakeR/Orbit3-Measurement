@@ -32,6 +32,8 @@ namespace Orbit3App
             ConsoleOut("Hello World!");
         }
 
+        #region
+
         /// <summary>
         /// Closes form
         /// </summary>
@@ -42,6 +44,8 @@ namespace Orbit3App
             this.Close();
         }
 
+        #endregion
+
         /// <summary>
         /// Display message in TextBoxOutput
         /// </summary>
@@ -51,5 +55,39 @@ namespace Orbit3App
             TextBoxOutput.AppendText(consoleMessage);
         }
 
+        private void ButtonConnect_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void ButtonDisconnect_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void ButtonFindHotSwappable_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void ButtonListModules_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void ButtonPing_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void ButtonNotifyAdd_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void ButtonStartDynamic2_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
