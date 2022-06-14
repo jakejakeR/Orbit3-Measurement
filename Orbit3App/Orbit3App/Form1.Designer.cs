@@ -295,6 +295,7 @@
             this.TextBoxOutput.Size = new System.Drawing.Size(450, 337);
             this.TextBoxOutput.TabIndex = 1;
             this.TextBoxOutput.WordWrap = false;
+            this.TextBoxOutput.TextChanged += new System.EventHandler(this.TextBoxOutput_TextChanged);
             // 
             // tableLayoutPanel1
             // 
