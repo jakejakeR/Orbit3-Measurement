@@ -16,6 +16,7 @@ namespace Orbit3App
     {
 
         OrbitServer Orbit;
+        const int NETINDEX = 0;
 
         public Form1()
         {
@@ -23,7 +24,8 @@ namespace Orbit3App
             try
             {
                 Orbit = new OrbitServer();
-            } catch(Exception Ex)
+            } 
+            catch(Exception Ex)
             {
                 MessageBox.Show(Ex.Message);
                 Environment.Exit(0); // Close app if there's an init failure
@@ -91,9 +93,12 @@ namespace Orbit3App
             }
         }
 
+
         private void ButtonFindHotSwappable_Click(object sender, EventArgs e)
         {
-
+            // The function returns the number of new modules added to the network
+            int modulesFound = Orbit.Networks[NETINDEX].Modules.FindHotswapped();
+            ConsoleOut("New modules on the network: " + modulesFound);
         }
 
         private void ButtonListModules_Click(object sender, EventArgs e)
