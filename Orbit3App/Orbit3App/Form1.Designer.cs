@@ -286,7 +286,7 @@
             this.TextBoxOutput.BackColor = System.Drawing.SystemColors.MenuText;
             this.TextBoxOutput.Dock = System.Windows.Forms.DockStyle.Fill;
             this.TextBoxOutput.Font = new System.Drawing.Font("Calibri", 12F);
-            this.TextBoxOutput.ForeColor = System.Drawing.Color.Lime;
+            this.TextBoxOutput.ForeColor = System.Drawing.Color.PaleGreen;
             this.TextBoxOutput.Location = new System.Drawing.Point(0, 200);
             this.TextBoxOutput.Multiline = true;
             this.TextBoxOutput.Name = "TextBoxOutput";
