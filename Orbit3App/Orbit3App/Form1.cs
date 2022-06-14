@@ -53,7 +53,7 @@ namespace Orbit3App
             }
             else
             {
-                ConsoleOut("Attempting to connect Orbit...\r\n");
+                ConsoleOut("Attempting to connect to Orbit...\r\n");
                 try
                 {
                     Orbit.Connect();
