@@ -17,6 +17,7 @@ namespace Orbit3App
 
         OrbitServer Orbit;
         const int NETINDEX = 0;
+        const String NOTCONNECTED = "\r\nNot connected to Orbit\r\n";
 
         public Form1()
         {
@@ -89,16 +90,37 @@ namespace Orbit3App
             }
             else
             {
-                ConsoleOut("\r\nNot connected to Orbit\r\n");
+                ConsoleOut(NOTCONNECTED);
             }
         }
 
-
+        /// <summary>
+        /// 'Assuming' a module's Orbit identity.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void ButtonFindHotSwappable_Click(object sender, EventArgs e)
         {
-            // The function returns the number of new modules added to the network
-            int modulesFound = Orbit.Networks[NETINDEX].Modules.FindHotswapped();
-            ConsoleOut("New modules on the network: " + modulesFound);
+            if (Orbit.Connected)
+            {
+                String ModuleDescription = Orbit.Networks[NETINDEX].Description;
+                ConsoleOut("Searching for HotSwappable modules on network: " + ModuleDescription + "\r\n");
+
+                try
+                {
+                    // The function returns the number of new modules added to the network
+                    int modulesFound = Orbit.Networks[NETINDEX].Modules.FindHotswapped();
+                    ConsoleOut("New modules on the network: " + modulesFound);
+                }
+                catch (Exception ex)
+                {
+                    ConsoleOut("ERROR#: " + ex.Message);
+                }
+            }
+            else
+            {
+                ConsoleOut(NOTCONNECTED);
+            }
         }
 
         private void ButtonListModules_Click(object sender, EventArgs e)
