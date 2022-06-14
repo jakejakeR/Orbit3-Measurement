@@ -149,6 +149,7 @@
             this.ButtonStartDynamic2.TabIndex = 2;
             this.ButtonStartDynamic2.Text = "START";
             this.ButtonStartDynamic2.UseVisualStyleBackColor = false;
+            this.ButtonStartDynamic2.Click += new System.EventHandler(this.ButtonStartDynamic2_Click);
             // 
             // panel4
             // 
@@ -215,6 +216,7 @@
             this.ButtonPing.TabIndex = 5;
             this.ButtonPing.Text = "Ping";
             this.ButtonPing.UseVisualStyleBackColor = true;
+            this.ButtonPing.Click += new System.EventHandler(this.ButtonPing_Click);
             // 
             // ButtonNotifyAdd
             // 
@@ -228,6 +230,7 @@
             this.ButtonNotifyAdd.TabIndex = 4;
             this.ButtonNotifyAdd.Text = "Notify Add";
             this.ButtonNotifyAdd.UseVisualStyleBackColor = true;
+            this.ButtonNotifyAdd.Click += new System.EventHandler(this.ButtonNotifyAdd_Click);
             // 
             // ButtonFindHotSwappable
             // 
@@ -241,6 +244,7 @@
             this.ButtonFindHotSwappable.TabIndex = 3;
             this.ButtonFindHotSwappable.Text = "Find Hot Swappable";
             this.ButtonFindHotSwappable.UseVisualStyleBackColor = true;
+            this.ButtonFindHotSwappable.Click += new System.EventHandler(this.ButtonFindHotSwappable_Click);
             // 
             // ButtonListModules
             // 
@@ -254,6 +258,7 @@
             this.ButtonListModules.TabIndex = 2;
             this.ButtonListModules.Text = "List Modules";
             this.ButtonListModules.UseVisualStyleBackColor = true;
+            this.ButtonListModules.Click += new System.EventHandler(this.ButtonListModules_Click);
             // 
             // ButtonDisconnect
             // 
@@ -267,6 +272,7 @@
             this.ButtonDisconnect.TabIndex = 1;
             this.ButtonDisconnect.Text = "Disconnect";
             this.ButtonDisconnect.UseVisualStyleBackColor = true;
+            this.ButtonDisconnect.Click += new System.EventHandler(this.ButtonDisconnect_Click);
             // 
             // ButtonConnect
             // 
@@ -280,6 +286,7 @@
             this.ButtonConnect.TabIndex = 0;
             this.ButtonConnect.Text = "Connect";
             this.ButtonConnect.UseVisualStyleBackColor = true;
+            this.ButtonConnect.Click += new System.EventHandler(this.ButtonConnect_Click);
             // 
             // TextBoxOutput
             // 
