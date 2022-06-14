@@ -31,7 +31,7 @@ namespace Orbit3App
 
             InitializeComponent();
             this.Text = "Orbit3 Measurement App V" + Assembly.GetExecutingAssembly().GetName().Version.ToString();
-            //ConsoleOut("Hello World!");
+            //ConsoleOut("Hello World!"); //TODO - delete in future (ConsoleOut test)
         }
 
         #region
@@ -79,7 +79,16 @@ namespace Orbit3App
 
         private void ButtonDisconnect_Click(object sender, EventArgs e)
         {
-
+            if (Orbit.Connected)
+            {
+                ConsoleOut("\r\nDisconnecting from Orbit...\r\n");
+                Orbit.Disconnect();
+                ConsoleOut("\r\nDisconnected succesfully\r\n");
+            }
+            else
+            {
+                ConsoleOut("\r\nNot connected to Orbit\r\n");
+            }
         }
 
         private void ButtonFindHotSwappable_Click(object sender, EventArgs e)
