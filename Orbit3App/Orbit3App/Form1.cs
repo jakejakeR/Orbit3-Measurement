@@ -29,6 +29,7 @@ namespace Orbit3App
 
             InitializeComponent();
             this.Text = "Orbit3 Measurement App V" + Assembly.GetExecutingAssembly().GetName().Version.ToString();
+            ConsoleOut("Hello World!");
         }
 
         /// <summary>
@@ -41,6 +42,14 @@ namespace Orbit3App
             this.Close();
         }
 
+        /// <summary>
+        /// Display message in TextBoxOutput
+        /// </summary>
+        /// <param name="consoleMessage">string appended to TextBox</param>
+        private void ConsoleOut(string consoleMessage)
+        {
+            TextBoxOutput.AppendText(consoleMessage);
+        }
 
     }
 }
