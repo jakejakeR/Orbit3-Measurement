@@ -168,8 +168,12 @@ namespace Orbit3App
         /// <exception cref="NotImplementedException"></exception>
         private void InitializeZeroing()
         {
-            throw new NotImplementedException();
+            ArrayOfReadingInCounts = new int[Orbit.Networks[NETINDEX].Modules.Count];
+            ArrayOfReadingInUnits = new double[Orbit.Networks[NETINDEX].Modules.Count];
         }
+
+        private int[] ArrayOfReadingInCounts;
+        private double[] ArrayOfReadingInUnits;
 
 
     }
