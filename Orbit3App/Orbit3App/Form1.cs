@@ -17,7 +17,7 @@ namespace Orbit3App
 
         OrbitServer Orbit;
         const int NETINDEX = 0;
-        const String NOTCONNECTED = "\r\nNot connected to Orbit\r\n";
+        const String NOTCONNECTED = "Not connected to Orbit\r\n";
 
         public Form1()
         {
@@ -64,12 +64,12 @@ namespace Orbit3App
                     ConsoleOut("Available Networks: " + Orbit.Networks.Count + "\r\n");
 
                     StringBuilder sb = new StringBuilder();
-
                     for (int i = 0; i < Orbit.Networks.Count; i++)
                     {
                         sb.AppendLine(Orbit.Networks[i].Description);
                     }
 
+                    // Displaying networks
                     String AvailableNetworks = sb.ToString();
                     ConsoleOut(AvailableNetworks);
                 }
@@ -80,6 +80,11 @@ namespace Orbit3App
             }
         }
 
+        /// <summary>
+        /// Disconnect from Orbit
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void ButtonDisconnect_Click(object sender, EventArgs e)
         {
             if (Orbit.Connected)
@@ -110,7 +115,7 @@ namespace Orbit3App
                 {
                     // The function returns the number of new modules added to the network
                     int modulesFound = Orbit.Networks[NETINDEX].Modules.FindHotswapped();
-                    ConsoleOut("New modules on the network: " + modulesFound);
+                    ConsoleOut("New modules on the network: " + modulesFound + "\r\n");
                     //TODO
                     InitializeZeroing();
                 }
@@ -127,7 +132,33 @@ namespace Orbit3App
 
         private void ButtonListModules_Click(object sender, EventArgs e)
         {
+            if (Orbit.Connected)
+            {
+                int NumberOfModules = Orbit.Networks[NETINDEX].Modules.Count;
+                String ModuleDescription = Orbit.Networks[NETINDEX].Description;
+                ConsoleOut("\r\nNumber of connected modules to " + ModuleDescription + ": " + NumberOfModules + "\r\n\r\n");
 
+                try
+                {
+                    StringBuilder sb = new StringBuilder();
+                    for (int i = 0; i < Orbit.Networks[NETINDEX].Modules.Count; i++)
+                    {
+                        sb.AppendLine(Orbit.Networks[NETINDEX].Modules[i].ModuleID);
+                    }
+
+                    // Displaying modules
+                    String ModulesInNetwork = sb.ToString();
+                    ConsoleOut(ModulesInNetwork);
+                }
+                catch (Exception ex)
+                {
+                    ConsoleOut("ERROR#: " + ex.Message);
+                }
+            }
+            else
+            {
+                ConsoleOut(NOTCONNECTED);
+            }
         }
 
         private void ButtonPing_Click(object sender, EventArgs e)
