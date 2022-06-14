@@ -33,26 +33,9 @@ namespace Orbit3App
         }
 
         #region
-
-        /// <summary>
-        /// Closes form
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void ButtonClose_Click(object sender, EventArgs e)
+        private void ButtonStartDynamic2_Click(object sender, EventArgs e)
         {
-            this.Close();
-        }
 
-        #endregion
-
-        /// <summary>
-        /// Display message in TextBoxOutput
-        /// </summary>
-        /// <param name="consoleMessage">string appended to TextBox</param>
-        private void ConsoleOut(string consoleMessage)
-        {
-            TextBoxOutput.AppendText(consoleMessage);
         }
 
         private void ButtonConnect_Click(object sender, EventArgs e)
@@ -85,9 +68,27 @@ namespace Orbit3App
 
         }
 
-        private void ButtonStartDynamic2_Click(object sender, EventArgs e)
+        /// <summary>
+        /// Closes form
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void ButtonClose_Click(object sender, EventArgs e)
         {
-
+            this.Close();
         }
+
+        #endregion
+
+        /// <summary>
+        /// Display message in TextBoxOutput
+        /// </summary>
+        /// <param name="consoleMessage">string appended to TextBox</param>
+        private void ConsoleOut(string consoleMessage)
+        {
+            TextBoxOutput.AppendText(consoleMessage);
+        }
+
+        
     }
 }
