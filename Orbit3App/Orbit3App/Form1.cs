@@ -66,6 +66,7 @@ namespace Orbit3App
                     StringBuilder sb = new StringBuilder();
                     for (int i = 0; i < Orbit.Networks.Count; i++)
                     {
+                        sb.Append("\t");
                         sb.AppendLine(Orbit.Networks[i].Description);
                     }
 
@@ -109,7 +110,7 @@ namespace Orbit3App
             if (Orbit.Connected)
             {
                 String ModuleDescription = Orbit.Networks[NETINDEX].Description;
-                ConsoleOut("Searching for HotSwappable modules on network: " + ModuleDescription + "\r\n");
+                ConsoleOut("\r\nSearching for HotSwappable modules on network: " + ModuleDescription + "\r\n");
 
                 try
                 {
@@ -130,6 +131,11 @@ namespace Orbit3App
             }
         }
 
+        /// <summary>
+        /// Lists all modules connected to network.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void ButtonListModules_Click(object sender, EventArgs e)
         {
             if (Orbit.Connected)
@@ -143,6 +149,8 @@ namespace Orbit3App
                     StringBuilder sb = new StringBuilder();
                     for (int i = 0; i < Orbit.Networks[NETINDEX].Modules.Count; i++)
                     {
+                        sb.Append("\t");
+                        sb.Append((i + 1) + ". ");
                         sb.AppendLine(Orbit.Networks[NETINDEX].Modules[i].ModuleID);
                     }
 
@@ -161,9 +169,34 @@ namespace Orbit3App
             }
         }
 
+        /// <summary>
+        /// Pings network for modules
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void ButtonPing_Click(object sender, EventArgs e)
         {
+            if (Orbit.Connected)
+            {
+                String ModuleDescription = Orbit.Networks[NETINDEX].Description;
+                ConsoleOut("\r\nAttempting to ping network: " + ModuleDescription + "\r\n");
 
+                try
+                {
+                    Orbit.Networks[NETINDEX].Modules.Ping();
+                    InitializeZeroing();
+
+                    ConsoleOut("\tPing complete.\r\n");
+                }
+                catch (Exception ex)
+                {
+                    ConsoleOut("ERROR#: " + ex.Message);
+                }
+            }
+            else
+            {
+                ConsoleOut(NOTCONNECTED);
+            }
         }
 
         private void ButtonNotifyAdd_Click(object sender, EventArgs e)
