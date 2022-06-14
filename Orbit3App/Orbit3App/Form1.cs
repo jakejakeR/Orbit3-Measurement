@@ -198,10 +198,50 @@ namespace Orbit3App
                 ConsoleOut(NOTCONNECTED);
             }
         }
-
+        /// <summary>
+        /// Add a module by notifying the controllerthrough manipulation of the modules input
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void ButtonNotifyAdd_Click(object sender, EventArgs e)
         {
+            if (Orbit.Connected)
+            {
+                String ModuleDescription = Orbit.Networks[NETINDEX].Description;
 
+                if (Orbit.Networks[NETINDEX].Modules.Notifying == false)
+                {
+                    ConsoleOut("\r\nWaiting for module to notify on network " + ModuleDescription + "\r\n\t[Press ESCAPE to stop]\r\n");
+
+                    try
+                    {
+                        bool IsModuleAdded = Orbit.Networks[NETINDEX].Modules.NotifyAddModule();
+
+                        if (IsModuleAdded)
+                        {
+                            ConsoleOut("\tModule added.\r\n");
+                            InitializeZeroing();
+                        }
+                        else
+                        {
+                            ConsoleOut("\tNotifyAdd stopped.\r\n");
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        ConsoleOut("ERROR#: " + ex.Message);
+                    }
+                }
+                else
+                {
+                    ConsoleOut("Already Notifying on network " + ModuleDescription + "\r\n\t[Press ESCAPE to stop]\r\n");
+                }
+                
+            }
+            else
+            {
+                ConsoleOut(NOTCONNECTED);
+            }
         }
 
         /// <summary>
