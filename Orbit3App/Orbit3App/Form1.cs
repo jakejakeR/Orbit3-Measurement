@@ -111,6 +111,8 @@ namespace Orbit3App
                     // The function returns the number of new modules added to the network
                     int modulesFound = Orbit.Networks[NETINDEX].Modules.FindHotswapped();
                     ConsoleOut("New modules on the network: " + modulesFound);
+                    //TODO
+                    InitializeZeroing();
                 }
                 catch (Exception ex)
                 {
@@ -159,6 +161,16 @@ namespace Orbit3App
             TextBoxOutput.AppendText(consoleMessage);
         }
 
-        
+
+        /// <summary>
+        /// Update the zero array (dependent on the number of module connected).
+        /// </summary>
+        /// <exception cref="NotImplementedException"></exception>
+        private void InitializeZeroing()
+        {
+            throw new NotImplementedException();
+        }
+
+
     }
 }
