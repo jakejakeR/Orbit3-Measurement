@@ -40,7 +40,9 @@ namespace Orbit3App
         //TODO
         private void ButtonStartDynamic2_Click(object sender, EventArgs e)
         {
-
+            // Parse test
+            ConsoleOut("Interval: " + ParseInterval() + "\r\n");
+            ConsoleOut("Syncs: " + ParseSyncs() + "\r\n");
         }
 
         /// <summary>
@@ -311,6 +313,37 @@ namespace Orbit3App
                 return -1;
             }
         }
+
+        /// <summary>
+        /// Parses user input to value of number of readings (collection size)
+        /// </summary>
+        /// <returns></returns>
+        private int ParseSyncs()
+        {
+            try
+            {
+                // Get user input
+                var UserInput = this.TextBoxInterval.Text;
+
+                // Remove all spaces
+                UserInput = UserInput.Replace(" ", "");
+
+                // Parse String input to int
+                int collection = Int32.Parse(UserInput);
+                if (collection < 1)
+                {
+                    MessageBox.Show("You can't have zero syncs.");
+                    return -1;
+                }
+                else return collection;
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("Syncs: Wrong input.");
+                return -1;
+            }
+        }
+
         #endregion
     }
 }
