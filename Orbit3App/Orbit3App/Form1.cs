@@ -37,6 +37,7 @@ namespace Orbit3App
         }
 
         #region
+        //TODO
         private void ButtonStartDynamic2_Click(object sender, EventArgs e)
         {
 
@@ -276,5 +277,40 @@ namespace Orbit3App
 
         private int[] ArrayOfReadingInCounts;
         private double[] ArrayOfReadingInUnits;
+
+        #region Private helpers
+
+        /// <summary>
+        /// Parses user input to value of interval between readings
+        /// </summary>
+        /// <returns></returns>
+        private int ParseInterval()
+        {
+            try
+            {
+                // Get user input
+                var UserInput = this.TextBoxInterval.Text;
+
+                // Remove all spaces
+                UserInput = UserInput.Replace(" ", "");
+
+                // Parse String input to int
+                int interval = Int32.Parse(UserInput) * 1000; // need to provice [ms] rather than [us]
+                int lowerLimit = 256;
+                int upperLimit = 30000000;
+                if ((interval < lowerLimit || interval > upperLimit) && interval != 0)
+                {
+                    MessageBox.Show("Interval is out of range.");
+                    return -1;
+                }
+                else return interval;
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("Interval: Wrong input.");
+                return -1;
+            }
+        }
+        #endregion
     }
 }
