@@ -36,16 +36,47 @@ namespace Orbit3App
             this.Text = "Orbit3 Measurement App V" + Assembly.GetExecutingAssembly().GetName().Version.ToString();
         }
 
-        #region
+        #region Data acauisition
+        private void DataAcquisition(OrbitNetwork OrbitNetwork)
+        {
+            OrbitNetwork.Dynamic.DynamicRate = eDynamicRate.Dynamic2Custom;
+            OrbitNetwork.Dynamic.NumberOfModules = Orbit.Networks[NETINDEX].Modules.Count;
+            OrbitNetwork.Dynamic.CollectionSize = ParseSyncs();
+            OrbitNetwork.Dynamic.DynamicInterval = ParseInterval();
+            OrbitNetwork.Dynamic.DynamicMode = eDynamicMode.Normal;
+
+            ConsoleOut("Dynamic 2 configuration:\r\n" +
+                "\tRate: " + OrbitNetwork.Dynamic.DynamicRate + "\r\n" +
+                "\tNumber of Modules: " + OrbitNetwork.Dynamic.NumberOfModules + "\r\n" +
+                "\tNumber of Syncs: " + OrbitNetwork.Dynamic.CollectionSize + "\r\n" +
+                "\tInterval: " + OrbitNetwork.Dynamic.DynamicInterval/1000 + " [ms]\r\n" +
+                "\tDynamic Mode: " + OrbitNetwork.Dynamic.DynamicMode + "\r\n");
+
+            OrbitNetwork.Dynamic.Enabled = true;
+            ConsoleOut("\t" + OrbitNetwork.Description + "Dynamic 2 Enabled: " + OrbitNetwork.Dynamic.Enabled + "\r\n");
+        }
+
+        #endregion
+
+        #region Buttons
         //TODO
         private void ButtonStartDynamic2_Click(object sender, EventArgs e)
         {
             if (Orbit.Connected == true)
             {
-                ConsoleOut("\r\nDynamic 2 collection of " + ParseSyncs() + " reads of modules on network:\r\n" + Orbit.Networks[NETINDEX].Description + "\r\n");
+                ConsoleOut("\r\nDynamic 2 collection of " + ParseSyncs() + " reads\r\n");
                 try
                 {
-                    // Here goes data acquisition logic
+                    OrbitNetwork OrbitNetwork = Orbit.Networks[NETINDEX];
+
+                    // Set speed to UltraHigh
+                    OrbitNetwork.NetSpeed = eNetSpeed.UltraHigh;
+                    ConsoleOut(OrbitNetwork.Description + "'s network speed changed: " + OrbitNetwork.NetSpeed + "\r\n");
+
+                    if (OrbitNetwork.Dynamic2Capable)
+                    {
+                        DataAcquisition(OrbitNetwork);
+                    }
                 }
                 catch (Exception Ex)
                 {
@@ -60,6 +91,7 @@ namespace Orbit3App
                 ConsoleOut("Not connected to Orbit\r\n");
             }
         }
+
 
         /// <summary>
         /// Establishing connection to Orbit Server
