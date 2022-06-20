@@ -52,6 +52,7 @@ namespace Orbit3App
             OrbitNetwork.NetSpeed = eNetSpeed.UltraHigh;
             ConsoleOut(OrbitNetwork.Description + "'s network speed changed: " + OrbitNetwork.NetSpeed + "\r\n");
 
+            // Network configuration
             OrbitNetwork.Dynamic.DynamicRate = eDynamicRate.Dynamic2Custom;
             OrbitNetwork.Dynamic.NumberOfModules = Orbit.Networks[NETINDEX].Modules.Count;
             OrbitNetwork.Dynamic.CollectionSize = ParseSyncs();
@@ -65,13 +66,14 @@ namespace Orbit3App
                 "\tInterval: " + OrbitNetwork.Dynamic.DynamicInterval/1000 + " [ms]\r\n" +
                 "\tDynamic Mode: " + OrbitNetwork.Dynamic.DynamicMode + "\r\n");
 
-            // Enable Dynamic
+            // Enable Dynamic and prepare network
             OrbitNetwork.Dynamic.Enabled = true;
             ConsoleOut("\t" + OrbitNetwork.Description + "Dynamic 2 Enabled: " + OrbitNetwork.Dynamic.Enabled + "\r\n");
 
             OrbitNetwork.Dynamic.Prepare();
             ConsoleOut("\t" + OrbitNetwork.Description + "Dynamic 2 Prepared\r\n");
 
+            // START!
             Orbit.StartAllDynamic();
             ConsoleOut("\tDynamic 2 collection started...\r\n");
 
