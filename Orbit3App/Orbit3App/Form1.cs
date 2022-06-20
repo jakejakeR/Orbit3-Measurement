@@ -38,6 +38,14 @@ namespace Orbit3App
         }
 
         #region Data acauisition
+
+        /// <summary>
+        /// Changes network speed to ultraHigh.
+        /// Configures dynamic2 on the networks, enables, prepares and carries out a collection of syncs.
+        /// Resets the speed back to low.
+        /// </summary>
+        /// <param name="OrbitNetwork"></param>
+        /// <returns>List of modules with their names and reads arrays</returns>
         private List<Module> DataAcquisition(OrbitNetwork OrbitNetwork)
         {
             // Set speed to UltraHigh
@@ -105,6 +113,10 @@ namespace Orbit3App
             return Modules;
         }
 
+        /// <summary>
+        /// Displays results of dynamic2 collection in text box.
+        /// </summary>
+        /// <param name="modules">List of modules from which results are displayed.</param>
         private void PrintResults(List<Module> modules)
         {
             String Headings = "\r\nRead#\t";
@@ -133,7 +145,11 @@ namespace Orbit3App
         #endregion
 
         #region Buttons
-        //TODO
+        /// <summary>
+        /// Carries out the measurement. Displays results and chart.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void ButtonStartDynamic2_Click(object sender, EventArgs e)
         {
             if (Orbit.Connected == true)
