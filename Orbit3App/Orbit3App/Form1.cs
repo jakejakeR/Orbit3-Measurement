@@ -6,6 +6,7 @@ using System.Drawing;
 using System.Linq;
 using System.Reflection;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Solartron.Orbit3;
@@ -54,6 +55,18 @@ namespace Orbit3App
 
             OrbitNetwork.Dynamic.Enabled = true;
             ConsoleOut("\t" + OrbitNetwork.Description + "Dynamic 2 Enabled: " + OrbitNetwork.Dynamic.Enabled + "\r\n");
+
+            OrbitNetwork.Dynamic.Prepare();
+            ConsoleOut("\t" + OrbitNetwork.Description + "Dynamic 2 Prepared\r\n");
+
+            Orbit.StartAllDynamic();
+            ConsoleOut("\tDynamic 2 collection started...\r\n");
+
+            while (Orbit.DynamicInProgress)
+            {
+                Thread.Sleep(100);
+            }
+            ConsoleOut("\tDynamic 2 collection complete.\r\n\r\n");
         }
 
         #endregion
