@@ -148,6 +148,18 @@ namespace Orbit3App
         private void GenerateChart(List<Module> modules)
         {
             ChartSetup();
+            foreach (Module module in modules)
+            {
+                AddSeriesToChart(module);
+            }
+        }
+
+        private void AddSeriesToChart(Module module)
+        {
+            chart1.Series.Add(new Series(module.Name));
+            chart1.Series.FindByName(module.Name).Points.DataBindY(module.Reads);
+            chart1.Series.FindByName(module.Name).ChartType = SeriesChartType.FastLine;
+            chart1.Series.FindByName(module.Name).BorderWidth = 2;
         }
 
         private void ChartSetup()
