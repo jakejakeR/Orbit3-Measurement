@@ -40,11 +40,25 @@ namespace Orbit3App
         //TODO
         private void ButtonStartDynamic2_Click(object sender, EventArgs e)
         {
-            int syncs = ParseSyncs();
-            int interval = ParseInterval();
-            // Parse test
-            ConsoleOut("Interval: " + interval + "\r\n");
-            ConsoleOut("Syncs: " + syncs + "\r\n");
+            if (Orbit.Connected == true)
+            {
+                ConsoleOut("\r\nDynamic 2 collection of " + ParseSyncs() + " reads of modules on network:\r\n" + Orbit.Networks[NETINDEX].Description + "\r\n");
+                try
+                {
+                    // Here goes data acquisition logic
+                }
+                catch (Exception Ex)
+                {
+                    // Need to ensure that speed is reset to low
+                    Orbit.Networks[NETINDEX].NetSpeed = eNetSpeed.Low;
+                    
+                    ConsoleOut("ERROR: " + Ex.Message + "\r\n");
+                }
+            }
+            else
+            {
+                ConsoleOut("Not connected to Orbit\r\n");
+            }
         }
 
         /// <summary>
@@ -60,7 +74,7 @@ namespace Orbit3App
             }
             else
             {
-                ConsoleOut("Attempting to connect to Orbit...\r\n");
+                ConsoleOut("Attempting to connect to Orbit...\r\n");    
                 try
                 {
                     Orbit.Connect();
@@ -123,9 +137,9 @@ namespace Orbit3App
                     ConsoleOut("New modules on the network: " + modulesFound + "\r\n");
                     InitializeZeroing();
                 }
-                catch (Exception ex)
+                catch (Exception Ex)
                 {
-                    ConsoleOut("ERROR#: " + ex.Message);
+                    ConsoleOut("ERROR#: " + Ex.Message);
                 }
             }
             else
@@ -161,9 +175,9 @@ namespace Orbit3App
                     String ModulesInNetwork = sb.ToString();
                     ConsoleOut(ModulesInNetwork);
                 }
-                catch (Exception ex)
+                catch (Exception Ex)
                 {
-                    ConsoleOut("ERROR#: " + ex.Message);
+                    ConsoleOut("ERROR#: " + Ex.Message);
                 }
             }
             else
@@ -191,9 +205,9 @@ namespace Orbit3App
 
                     ConsoleOut("\tPing complete.\r\n");
                 }
-                catch (Exception ex)
+                catch (Exception Ex)
                 {
-                    ConsoleOut("ERROR#: " + ex.Message);
+                    ConsoleOut("ERROR#: " + Ex.Message);
                 }
             }
             else
@@ -230,9 +244,9 @@ namespace Orbit3App
                             ConsoleOut("\tNotifyAdd stopped.\r\n");
                         }
                     }
-                    catch (Exception ex)
+                    catch (Exception Ex)
                     {
-                        ConsoleOut("ERROR#: " + ex.Message);
+                        ConsoleOut("ERROR#: " + Ex.Message);
                     }
                 }
                 else
@@ -272,7 +286,6 @@ namespace Orbit3App
         /// <summary>
         /// Update the zero array (dependent on the number of module connected).
         /// </summary>
-        /// <exception cref="NotImplementedException"></exception>
         private void InitializeZeroing()
         {
             ArrayOfReadingInCounts = new int[Orbit.Networks[NETINDEX].Modules.Count];
