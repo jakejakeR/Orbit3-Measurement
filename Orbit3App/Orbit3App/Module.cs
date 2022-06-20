@@ -6,11 +6,14 @@ using System.Threading.Tasks;
 
 namespace Orbit3App
 {
+    /// <summary>
+    /// Class that stores module name and reads from measurement
+    /// </summary>
     internal class Module
     {
         public String Name { get; set; }
         public double[] Reads { get; set; }
-        private int CollectionSize;
+        public int CollectionSize;
 
         public Module(int CollectionSize)
         {

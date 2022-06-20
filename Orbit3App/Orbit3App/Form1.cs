@@ -38,7 +38,7 @@ namespace Orbit3App
         }
 
         #region Data acauisition
-        private void DataAcquisition(OrbitNetwork OrbitNetwork)
+        private List<Module> DataAcquisition(OrbitNetwork OrbitNetwork)
         {
             OrbitNetwork.Dynamic.DynamicRate = eDynamicRate.Dynamic2Custom;
             OrbitNetwork.Dynamic.NumberOfModules = Orbit.Networks[NETINDEX].Modules.Count;
@@ -75,6 +75,44 @@ namespace Orbit3App
             // Check if error occured
             ConsoleOut(String.Format("Dynamic Error Value: {0}",
                 Orbit.GetErrorString((int)OrbitNetwork.Dynamic.DynamicData.CollectionStatus)));
+
+            int ReadCount = OrbitNetwork.Dynamic.DynamicData.ReadingCount;
+            int ModuleCount = OrbitNetwork.Dynamic.DynamicData.ModuleCount;
+            OrbitDynamicData DynamicData = OrbitNetwork.Dynamic.DynamicData;
+
+            List<Module> Modules = new List<Module>(ModuleCount);
+            
+            // Add new module to list and set its name and array of reads
+            for (int ModuleIndex = 0; ModuleIndex < ModuleCount; ModuleIndex++)
+            {
+                Modules.Add(new Module(ReadCount));
+                Modules[ModuleIndex].Name = Orbit.Networks[NETINDEX].Modules[ModuleIndex].ModuleID;
+
+                for (int BlockIndex = 0; BlockIndex < ReadCount; BlockIndex++)
+                {
+                    Modules[ModuleIndex].Reads[BlockIndex] = DynamicData[ModuleIndex, BlockIndex];
+                }
+            }
+
+            return Modules;
+        }
+
+        private void PrintResults(List<Module> modules)
+        {
+            String Headings = string.Empty;
+            String Results = string.Empty;
+
+            foreach (Module module in modules)
+            {
+                Headings += module.Name + "\t";
+                for (int i = 0; i < module.Reads.Length; i++)
+                {
+                    Results += i + "\t" + String.Format("{0:0.000000}", module.Reads[i]) + "\t\t";                    
+                }
+            }
+
+            ConsoleOut(Headings + "\r\n");
+            ConsoleOut(Results + "\r\n");
         }
 
         #endregion
@@ -85,6 +123,7 @@ namespace Orbit3App
         {
             if (Orbit.Connected == true)
             {
+                List<Module> Modules;
                 ConsoleOut("\r\nDynamic 2 collection of " + ParseSyncs() + " reads\r\n");
                 try
                 {
@@ -96,7 +135,9 @@ namespace Orbit3App
 
                     if (OrbitNetwork.Dynamic2Capable)
                     {
-                        DataAcquisition(OrbitNetwork);
+                        Modules = DataAcquisition(OrbitNetwork);
+
+                        PrintResults(Modules);
                     }
                 }
                 catch (Exception Ex)
