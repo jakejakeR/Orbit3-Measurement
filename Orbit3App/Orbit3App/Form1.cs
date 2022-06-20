@@ -99,18 +99,20 @@ namespace Orbit3App
 
         private void PrintResults(List<Module> modules)
         {
-            String Headings = string.Empty;
+            String Headings = "\r\nRead#\t";
             String Results = string.Empty;
+            int ReadCount = modules[0].Reads.Length;
 
-            foreach (Module module in modules)
+            for (int i = 0; i < ReadCount; i++)
             {
-                Headings += module.Name + "\t";
-                for (int i = 0; i < module.Reads.Length; i++)
+                Results += i + "\t";
+                foreach (Module module in modules)
                 {
-                    Results += i + "\t" + String.Format("{0:0.000000}", module.Reads[i]) + "\t\t";                    
+                    Headings += module.Name + "\t";
+                    Results += string.Format("{0:0.000000}", module.Reads[i]) + "\t\t";
                 }
             }
-
+                        
             ConsoleOut(Headings + "\r\n");
             ConsoleOut(Results + "\r\n");
         }
