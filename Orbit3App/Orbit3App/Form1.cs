@@ -429,15 +429,15 @@ namespace Orbit3App
         /// <param name="modules"></param>
         private void PrintMinMax(List<Module> modules)
         {
-            String Headings = "\r\nModule:";
+            String Headings = "\r\nModule:" + "\t\tMin:" + "\t\tMax:" + "\t\tAvg:";
             String MinMaxVal = string.Empty;
 
             foreach (Module module in modules)
             {
                 MinMaxVal += module.Name + "\t" +
-                    "Min: " + string.Format("{0:0.000000}", module.Reads.Min()) + "\t" +
-                    "Max: " + string.Format("{0:0.000000}", module.Reads.Max()) + "\t" +
-                    "Avg: " + string.Format("{0:0.000000}", module.Reads.Average()) + "\r\n";
+                    string.Format("{0:0.000000}", module.Reads.Min()) + "\t\t" +
+                    string.Format("{0:0.000000}", module.Reads.Max()) + "\t\t" +
+                    string.Format("{0:0.000000}", module.Reads.Average()) + "\r\n";
             }
 
             ConsoleOut(Headings + "\r\n");
