@@ -423,6 +423,10 @@ namespace Orbit3App
             ConsoleOut(Results + "\r\n");
         }
 
+        /// <summary>
+        /// Displays Min, Max and Average results of dynamic2 collection in text box.
+        /// </summary>
+        /// <param name="modules"></param>
         private void PrintMinMax(List<Module> modules)
         {
             String Headings = "\r\nModule:";
@@ -430,13 +434,20 @@ namespace Orbit3App
 
             foreach (Module module in modules)
             {
-                MinMaxVal += module.Name + "\t" + "Min: " +  string.Format("{0:0.000000}", module.Reads.Min()) + "\t" + "Max: " + string.Format("{0:0.000000}", module.Reads.Max()) + "\r\n";
+                MinMaxVal += module.Name + "\t" +
+                    "Min: " + string.Format("{0:0.000000}", module.Reads.Min()) + "\t" +
+                    "Max: " + string.Format("{0:0.000000}", module.Reads.Max()) + "\t" +
+                    "Avg: " + string.Format("{0:0.000000}", module.Reads.Average()) + "\r\n";
             }
 
             ConsoleOut(Headings + "\r\n");
             ConsoleOut(MinMaxVal + "\r\n");
         }
 
+        /// <summary>
+        /// Generates a chart based on the setup.
+        /// </summary>
+        /// <param name="modules"></param>
         private void GenerateChart(List<Module> modules)
         {
             ChartSetup();
