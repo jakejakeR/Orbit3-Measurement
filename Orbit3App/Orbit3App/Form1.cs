@@ -40,6 +40,10 @@ namespace Orbit3App
         #region Data acauisition
         private List<Module> DataAcquisition(OrbitNetwork OrbitNetwork)
         {
+            // Set speed to UltraHigh
+            OrbitNetwork.NetSpeed = eNetSpeed.UltraHigh;
+            ConsoleOut(OrbitNetwork.Description + "'s network speed changed: " + OrbitNetwork.NetSpeed + "\r\n");
+
             OrbitNetwork.Dynamic.DynamicRate = eDynamicRate.Dynamic2Custom;
             OrbitNetwork.Dynamic.NumberOfModules = Orbit.Networks[NETINDEX].Modules.Count;
             OrbitNetwork.Dynamic.CollectionSize = ParseSyncs();
@@ -71,6 +75,10 @@ namespace Orbit3App
 
             // Disable Dynamic
             OrbitNetwork.Dynamic.Enabled = false;
+
+            // Set speed to Low
+            OrbitNetwork.NetSpeed = eNetSpeed.Low;
+            ConsoleOut(OrbitNetwork.Description + "'s network speed changed: " + OrbitNetwork.NetSpeed + "\r\n");
 
             // Check if error occured
             ConsoleOut(String.Format("Dynamic Error Value: {0}",
@@ -110,7 +118,7 @@ namespace Orbit3App
 
             for (int i = 0; i < ReadCount; i++)
             {
-                Results += i + "\t";
+                Results += (i+1) + "\t";
                 foreach (Module module in modules)
                 {
                     Results += string.Format("{0:0.000000}", module.Reads[i]) + "\t\t";
@@ -134,12 +142,8 @@ namespace Orbit3App
                 ConsoleOut("\r\nDynamic 2 collection of " + ParseSyncs() + " reads\r\n");
                 try
                 {
-                    OrbitNetwork OrbitNetwork = Orbit.Networks[NETINDEX];
-
-                    // Set speed to UltraHigh
-                    OrbitNetwork.NetSpeed = eNetSpeed.UltraHigh;
-                    ConsoleOut(OrbitNetwork.Description + "'s network speed changed: " + OrbitNetwork.NetSpeed + "\r\n");
-
+                    OrbitNetwork OrbitNetwork = Orbit.Networks[NETINDEX];                                     
+                   
                     if (OrbitNetwork.Dynamic2Capable)
                     {
                         Modules = DataAcquisition(OrbitNetwork);
