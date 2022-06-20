@@ -103,14 +103,19 @@ namespace Orbit3App
             String Results = string.Empty;
             int ReadCount = modules[0].Reads.Length;
 
+            foreach (Module module in modules)
+            {
+                Headings += module.Name + "\t";
+            }
+
             for (int i = 0; i < ReadCount; i++)
             {
                 Results += i + "\t";
                 foreach (Module module in modules)
                 {
-                    Headings += module.Name + "\t";
                     Results += string.Format("{0:0.000000}", module.Reads[i]) + "\t\t";
                 }
+                Results += "\r\n";    
             }
                         
             ConsoleOut(Headings + "\r\n");
