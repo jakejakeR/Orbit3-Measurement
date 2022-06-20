@@ -28,10 +28,10 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
             System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
             System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.labelDynamic = new System.Windows.Forms.Label();
             this.TextBoxSyncs = new System.Windows.Forms.TextBox();
             this.TextBoxInterval = new System.Windows.Forms.TextBox();
@@ -41,6 +41,7 @@
             this.ButtonStartDynamic2 = new System.Windows.Forms.Button();
             this.panel4 = new System.Windows.Forms.Panel();
             this.panel3 = new System.Windows.Forms.Panel();
+            this.chart1 = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.ButtonClose = new System.Windows.Forms.Button();
             this.panel2 = new System.Windows.Forms.Panel();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
@@ -53,15 +54,15 @@
             this.TextBoxOutput = new System.Windows.Forms.TextBox();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.chart1 = new System.Windows.Forms.DataVisualization.Charting.Chart();
+            this.ButtonClearConsole = new System.Windows.Forms.Button();
             this.tableLayoutPanel2.SuspendLayout();
             this.panel4.SuspendLayout();
             this.panel3.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.chart1)).BeginInit();
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.tableLayoutPanel1.SuspendLayout();
             this.panel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.chart1)).BeginInit();
             this.SuspendLayout();
             // 
             // labelDynamic
@@ -147,7 +148,7 @@
             // 
             this.ButtonStartDynamic2.BackColor = System.Drawing.Color.PaleGreen;
             this.ButtonStartDynamic2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.ButtonStartDynamic2.Font = new System.Drawing.Font("Calibri", 14F);
+            this.ButtonStartDynamic2.Font = new System.Drawing.Font("Calibri", 14F, System.Drawing.FontStyle.Bold);
             this.ButtonStartDynamic2.Location = new System.Drawing.Point(0, 0);
             this.ButtonStartDynamic2.Name = "ButtonStartDynamic2";
             this.ButtonStartDynamic2.Size = new System.Drawing.Size(558, 40);
@@ -177,20 +178,40 @@
             this.panel3.Size = new System.Drawing.Size(558, 486);
             this.panel3.TabIndex = 6;
             // 
+            // chart1
+            // 
+            chartArea1.Name = "ChartArea1";
+            this.chart1.ChartAreas.Add(chartArea1);
+            this.chart1.Dock = System.Windows.Forms.DockStyle.Fill;
+            legend1.Name = "Legend1";
+            this.chart1.Legends.Add(legend1);
+            this.chart1.Location = new System.Drawing.Point(0, 181);
+            this.chart1.Name = "chart1";
+            series1.ChartArea = "ChartArea1";
+            series1.Legend = "Legend1";
+            series1.Name = "Series1";
+            this.chart1.Series.Add(series1);
+            this.chart1.Size = new System.Drawing.Size(558, 305);
+            this.chart1.TabIndex = 3;
+            this.chart1.Text = "chart1";
+            // 
             // ButtonClose
             // 
             this.ButtonClose.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.ButtonClose.Font = new System.Drawing.Font("Calibri", 12F);
+            this.ButtonClose.BackColor = System.Drawing.Color.IndianRed;
+            this.ButtonClose.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Bold);
+            this.ButtonClose.ForeColor = System.Drawing.SystemColors.Window;
             this.ButtonClose.Location = new System.Drawing.Point(480, 3);
             this.ButtonClose.Name = "ButtonClose";
             this.ButtonClose.Size = new System.Drawing.Size(75, 44);
             this.ButtonClose.TabIndex = 1;
             this.ButtonClose.Text = "Close";
-            this.ButtonClose.UseVisualStyleBackColor = true;
+            this.ButtonClose.UseVisualStyleBackColor = false;
             this.ButtonClose.Click += new System.EventHandler(this.ButtonClose_Click);
             // 
             // panel2
             // 
+            this.panel2.Controls.Add(this.ButtonClearConsole);
             this.panel2.Controls.Add(this.pictureBox1);
             this.panel2.Controls.Add(this.ButtonClose);
             this.panel2.Dock = System.Windows.Forms.DockStyle.Bottom;
@@ -201,10 +222,10 @@
             // 
             // pictureBox1
             // 
-            this.pictureBox1.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.pictureBox1.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
             this.pictureBox1.InitialImage = null;
-            this.pictureBox1.Location = new System.Drawing.Point(0, 0);
+            this.pictureBox1.Location = new System.Drawing.Point(314, 0);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(160, 51);
             this.pictureBox1.TabIndex = 2;
@@ -340,22 +361,16 @@
             this.panel1.Size = new System.Drawing.Size(450, 537);
             this.panel1.TabIndex = 4;
             // 
-            // chart1
+            // ButtonClearConsole
             // 
-            chartArea1.Name = "ChartArea1";
-            this.chart1.ChartAreas.Add(chartArea1);
-            this.chart1.Dock = System.Windows.Forms.DockStyle.Fill;
-            legend1.Name = "Legend1";
-            this.chart1.Legends.Add(legend1);
-            this.chart1.Location = new System.Drawing.Point(0, 181);
-            this.chart1.Name = "chart1";
-            series1.ChartArea = "ChartArea1";
-            series1.Legend = "Legend1";
-            series1.Name = "Series1";
-            this.chart1.Series.Add(series1);
-            this.chart1.Size = new System.Drawing.Size(558, 305);
-            this.chart1.TabIndex = 3;
-            this.chart1.Text = "chart1";
+            this.ButtonClearConsole.Font = new System.Drawing.Font("Calibri", 12F);
+            this.ButtonClearConsole.Location = new System.Drawing.Point(3, 3);
+            this.ButtonClearConsole.Name = "ButtonClearConsole";
+            this.ButtonClearConsole.Size = new System.Drawing.Size(109, 44);
+            this.ButtonClearConsole.TabIndex = 3;
+            this.ButtonClearConsole.Text = "Clear Console";
+            this.ButtonClearConsole.UseVisualStyleBackColor = true;
+            this.ButtonClearConsole.Click += new System.EventHandler(this.ButtonClearConsole_Click);
             // 
             // Form1
             // 
@@ -373,12 +388,12 @@
             this.tableLayoutPanel2.PerformLayout();
             this.panel4.ResumeLayout(false);
             this.panel3.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.chart1)).EndInit();
             this.panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.tableLayoutPanel1.ResumeLayout(false);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.chart1)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -407,6 +422,7 @@
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.DataVisualization.Charting.Chart chart1;
+        private System.Windows.Forms.Button ButtonClearConsole;
     }
 }
 

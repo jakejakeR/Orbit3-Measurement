@@ -37,7 +37,6 @@ namespace Orbit3App
             InitializeComponent();
             this.Text = "Orbit3 Measurement App V" + Assembly.GetExecutingAssembly().GetName().Version.ToString();
         }
-
         
         #region Buttons
         /// <summary>
@@ -79,7 +78,6 @@ namespace Orbit3App
                 ConsoleOut("Not connected to Orbit\r\n");
             }
         }
-
 
         /// <summary>
         /// Establishing connection to Orbit Server
@@ -235,6 +233,7 @@ namespace Orbit3App
                 ConsoleOut(NOTCONNECTED);
             }
         }
+
         /// <summary>
         /// Add a module by notifying the controllerthrough manipulation of the modules input
         /// </summary>
@@ -291,6 +290,16 @@ namespace Orbit3App
             this.Close();
         }
 
+        /// <summary>
+        /// Clears console text box.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void ButtonClearConsole_Click(object sender, EventArgs e)
+        {
+            TextBoxOutput.Clear();
+        }
+
         #endregion
 
         /// <summary>
@@ -301,7 +310,6 @@ namespace Orbit3App
         {
             TextBoxOutput.AppendText(consoleMessage);
         }
-
 
         /// <summary>
         /// Update the zero array (dependent on the number of module connected).
@@ -314,7 +322,6 @@ namespace Orbit3App
 
         private int[] ArrayOfReadingInCounts;
         private double[] ArrayOfReadingInUnits;
-
 
         #region Data acauisition and chart
 
@@ -569,5 +576,6 @@ namespace Orbit3App
         }
 
         #endregion
+
     }
 }
