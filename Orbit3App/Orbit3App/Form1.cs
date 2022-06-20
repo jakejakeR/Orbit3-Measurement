@@ -40,9 +40,11 @@ namespace Orbit3App
         //TODO
         private void ButtonStartDynamic2_Click(object sender, EventArgs e)
         {
+            int syncs = ParseSyncs();
+            int interval = ParseInterval();
             // Parse test
-            ConsoleOut("Interval: " + ParseInterval() + "\r\n");
-            ConsoleOut("Syncs: " + ParseSyncs() + "\r\n");
+            ConsoleOut("Interval: " + interval + "\r\n");
+            ConsoleOut("Syncs: " + syncs + "\r\n");
         }
 
         /// <summary>
@@ -323,7 +325,7 @@ namespace Orbit3App
             try
             {
                 // Get user input
-                var UserInput = this.TextBoxInterval.Text;
+                var UserInput = this.TextBoxSyncs.Text;
 
                 // Remove all spaces
                 UserInput = UserInput.Replace(" ", "");
