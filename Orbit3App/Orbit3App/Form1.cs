@@ -421,6 +421,20 @@ namespace Orbit3App
             ConsoleOut(Results + "\r\n");
         }
 
+        private void PrintMinMax(List<Module> modules)
+        {
+            String Headings = "\r\nModule:\tMin:\tMax:";
+            String MinMaxVal = string.Empty;
+
+            foreach (Module module in modules)
+            {
+                MinMaxVal += module.Name + "\t" + module.Reads.Min() + "\t" + module.Reads.Max() + "\r\n";
+            }
+
+            ConsoleOut(Headings + "\r\n");
+            ConsoleOut(MinMaxVal + "\r\n");
+        }
+
         private void GenerateChart(List<Module> modules)
         {
             ChartSetup();
