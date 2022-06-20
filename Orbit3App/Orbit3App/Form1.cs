@@ -6,6 +6,7 @@ using System.Drawing;
 using System.Linq;
 using System.Reflection;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Solartron.Orbit3;
@@ -36,11 +37,152 @@ namespace Orbit3App
             this.Text = "Orbit3 Measurement App V" + Assembly.GetExecutingAssembly().GetName().Version.ToString();
         }
 
-        #region
+        #region Data acauisition
+
+        /// <summary>
+        /// Changes network speed to ultraHigh.
+        /// Configures dynamic2 on the networks, enables, prepares and carries out a collection of syncs.
+        /// Resets the speed back to low.
+        /// </summary>
+        /// <param name="OrbitNetwork"></param>
+        /// <returns>List of modules with their names and reads arrays</returns>
+        private List<Module> DataAcquisition(OrbitNetwork OrbitNetwork)
+        {
+            // Set speed to UltraHigh
+            OrbitNetwork.NetSpeed = eNetSpeed.UltraHigh;
+            ConsoleOut(OrbitNetwork.Description + "'s network speed changed: " + OrbitNetwork.NetSpeed + "\r\n");
+
+            // Network configuration
+            OrbitNetwork.Dynamic.DynamicRate = eDynamicRate.Dynamic2Custom;
+            OrbitNetwork.Dynamic.NumberOfModules = Orbit.Networks[NETINDEX].Modules.Count;
+            OrbitNetwork.Dynamic.CollectionSize = ParseSyncs();
+            OrbitNetwork.Dynamic.DynamicInterval = ParseInterval();
+            OrbitNetwork.Dynamic.DynamicMode = eDynamicMode.Normal;
+
+            ConsoleOut("Dynamic 2 configuration:\r\n" +
+                "\tRate: " + OrbitNetwork.Dynamic.DynamicRate + "\r\n" +
+                "\tNumber of Modules: " + OrbitNetwork.Dynamic.NumberOfModules + "\r\n" +
+                "\tNumber of Syncs: " + OrbitNetwork.Dynamic.CollectionSize + "\r\n" +
+                "\tInterval: " + OrbitNetwork.Dynamic.DynamicInterval/1000 + " [ms]\r\n" +
+                "\tDynamic Mode: " + OrbitNetwork.Dynamic.DynamicMode + "\r\n");
+
+            // Enable Dynamic and prepare network
+            OrbitNetwork.Dynamic.Enabled = true;
+            ConsoleOut("\t" + OrbitNetwork.Description + "Dynamic 2 Enabled: " + OrbitNetwork.Dynamic.Enabled + "\r\n");
+
+            OrbitNetwork.Dynamic.Prepare();
+            ConsoleOut("\t" + OrbitNetwork.Description + "Dynamic 2 Prepared\r\n");
+
+            // START!
+            Orbit.StartAllDynamic();
+            ConsoleOut("\tDynamic 2 collection started...\r\n");
+
+            while (Orbit.DynamicInProgress)
+            {
+                Thread.Sleep(100);
+            }
+            ConsoleOut("\tDynamic 2 collection complete.\r\n\r\n");
+
+            // Disable Dynamic
+            OrbitNetwork.Dynamic.Enabled = false;
+
+            // Set speed to Low
+            OrbitNetwork.NetSpeed = eNetSpeed.Low;
+            ConsoleOut(OrbitNetwork.Description + "'s network speed changed: " + OrbitNetwork.NetSpeed + "\r\n");
+
+            // Check if error occured
+            ConsoleOut(String.Format("Dynamic Error Value: {0}",
+                Orbit.GetErrorString((int)OrbitNetwork.Dynamic.DynamicData.CollectionStatus)));
+
+            int ReadCount = OrbitNetwork.Dynamic.DynamicData.ReadingCount;
+            int ModuleCount = OrbitNetwork.Dynamic.DynamicData.ModuleCount;
+            OrbitDynamicData DynamicData = OrbitNetwork.Dynamic.DynamicData;
+
+            List<Module> Modules = new List<Module>(ModuleCount);
+            
+            // Add new module to list and set its name and array of reads
+            for (int ModuleIndex = 0; ModuleIndex < ModuleCount; ModuleIndex++)
+            {
+                Modules.Add(new Module(ReadCount));
+                Modules[ModuleIndex].Name = Orbit.Networks[NETINDEX].Modules[ModuleIndex].ModuleID;
+
+                for (int BlockIndex = 0; BlockIndex < ReadCount; BlockIndex++)
+                {
+                    Modules[ModuleIndex].Reads[BlockIndex] = DynamicData[ModuleIndex, BlockIndex];
+                }
+            }
+
+            return Modules;
+        }
+
+        /// <summary>
+        /// Displays results of dynamic2 collection in text box.
+        /// </summary>
+        /// <param name="modules">List of modules from which results are displayed.</param>
+        private void PrintResults(List<Module> modules)
+        {
+            String Headings = "\r\nRead#\t";
+            String Results = string.Empty;
+            int ReadCount = modules[0].Reads.Length;
+
+            foreach (Module module in modules)
+            {
+                Headings += module.Name + "\t";
+            }
+
+            for (int i = 0; i < ReadCount; i++)
+            {
+                Results += (i+1) + "\t";
+                foreach (Module module in modules)
+                {
+                    Results += string.Format("{0:0.000000}", module.Reads[i]) + "\t\t";
+                }
+                Results += "\r\n";    
+            }
+                        
+            ConsoleOut(Headings + "\r\n");
+            ConsoleOut(Results + "\r\n");
+        }
+
+        #endregion
+
+        #region Buttons
+        /// <summary>
+        /// Carries out the measurement. Displays results and chart.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void ButtonStartDynamic2_Click(object sender, EventArgs e)
         {
+            if (Orbit.Connected == true)
+            {
+                List<Module> Modules;
+                ConsoleOut("\r\nDynamic 2 collection of " + ParseSyncs() + " reads\r\n");
+                try
+                {
+                    OrbitNetwork OrbitNetwork = Orbit.Networks[NETINDEX];                                     
+                   
+                    if (OrbitNetwork.Dynamic2Capable)
+                    {
+                        Modules = DataAcquisition(OrbitNetwork);
 
+                        PrintResults(Modules);
+                    }
+                }
+                catch (Exception Ex)
+                {
+                    // Need to ensure that speed is reset to low
+                    Orbit.Networks[NETINDEX].NetSpeed = eNetSpeed.Low;
+                    
+                    ConsoleOut("ERROR: " + Ex.Message + "\r\n");
+                }
+            }
+            else
+            {
+                ConsoleOut("Not connected to Orbit\r\n");
+            }
         }
+
 
         /// <summary>
         /// Establishing connection to Orbit Server
@@ -55,7 +197,7 @@ namespace Orbit3App
             }
             else
             {
-                ConsoleOut("Attempting to connect to Orbit...\r\n");
+                ConsoleOut("Attempting to connect to Orbit...\r\n");    
                 try
                 {
                     Orbit.Connect();
@@ -118,9 +260,9 @@ namespace Orbit3App
                     ConsoleOut("New modules on the network: " + modulesFound + "\r\n");
                     InitializeZeroing();
                 }
-                catch (Exception ex)
+                catch (Exception Ex)
                 {
-                    ConsoleOut("ERROR#: " + ex.Message);
+                    ConsoleOut("ERROR#: " + Ex.Message);
                 }
             }
             else
@@ -156,9 +298,9 @@ namespace Orbit3App
                     String ModulesInNetwork = sb.ToString();
                     ConsoleOut(ModulesInNetwork);
                 }
-                catch (Exception ex)
+                catch (Exception Ex)
                 {
-                    ConsoleOut("ERROR#: " + ex.Message);
+                    ConsoleOut("ERROR#: " + Ex.Message);
                 }
             }
             else
@@ -186,9 +328,9 @@ namespace Orbit3App
 
                     ConsoleOut("\tPing complete.\r\n");
                 }
-                catch (Exception ex)
+                catch (Exception Ex)
                 {
-                    ConsoleOut("ERROR#: " + ex.Message);
+                    ConsoleOut("ERROR#: " + Ex.Message);
                 }
             }
             else
@@ -225,9 +367,9 @@ namespace Orbit3App
                             ConsoleOut("\tNotifyAdd stopped.\r\n");
                         }
                     }
-                    catch (Exception ex)
+                    catch (Exception Ex)
                     {
-                        ConsoleOut("ERROR#: " + ex.Message);
+                        ConsoleOut("ERROR#: " + Ex.Message);
                     }
                 }
                 else
@@ -267,7 +409,6 @@ namespace Orbit3App
         /// <summary>
         /// Update the zero array (dependent on the number of module connected).
         /// </summary>
-        /// <exception cref="NotImplementedException"></exception>
         private void InitializeZeroing()
         {
             ArrayOfReadingInCounts = new int[Orbit.Networks[NETINDEX].Modules.Count];
@@ -276,5 +417,71 @@ namespace Orbit3App
 
         private int[] ArrayOfReadingInCounts;
         private double[] ArrayOfReadingInUnits;
+
+        #region Private helpers
+
+        /// <summary>
+        /// Parses user input to value of interval between readings
+        /// </summary>
+        /// <returns></returns>
+        private int ParseInterval()
+        {
+            try
+            {
+                // Get user input
+                var UserInput = this.TextBoxInterval.Text;
+
+                // Remove all spaces
+                UserInput = UserInput.Replace(" ", "");
+
+                // Parse String input to int
+                int interval = Int32.Parse(UserInput) * 1000; // need to provice [ms] rather than [us]
+                int lowerLimit = 256;
+                int upperLimit = 30000000;
+                if ((interval < lowerLimit || interval > upperLimit) && interval != 0)
+                {
+                    MessageBox.Show("Interval is out of range.");
+                    return -1;
+                }
+                else return interval;
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("Interval: Wrong input.");
+                return -1;
+            }
+        }
+
+        /// <summary>
+        /// Parses user input to value of number of readings (collection size)
+        /// </summary>
+        /// <returns></returns>
+        private int ParseSyncs()
+        {
+            try
+            {
+                // Get user input
+                var UserInput = this.TextBoxSyncs.Text;
+
+                // Remove all spaces
+                UserInput = UserInput.Replace(" ", "");
+
+                // Parse String input to int
+                int collection = Int32.Parse(UserInput);
+                if (collection < 1)
+                {
+                    MessageBox.Show("You can't have zero syncs.");
+                    return -1;
+                }
+                else return collection;
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("Syncs: Wrong input.");
+                return -1;
+            }
+        }
+
+        #endregion
     }
 }
