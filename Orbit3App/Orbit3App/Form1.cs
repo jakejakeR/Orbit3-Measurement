@@ -53,6 +53,7 @@ namespace Orbit3App
                 "\tInterval: " + OrbitNetwork.Dynamic.DynamicInterval/1000 + " [ms]\r\n" +
                 "\tDynamic Mode: " + OrbitNetwork.Dynamic.DynamicMode + "\r\n");
 
+            // Enable Dynamic
             OrbitNetwork.Dynamic.Enabled = true;
             ConsoleOut("\t" + OrbitNetwork.Description + "Dynamic 2 Enabled: " + OrbitNetwork.Dynamic.Enabled + "\r\n");
 
@@ -67,6 +68,13 @@ namespace Orbit3App
                 Thread.Sleep(100);
             }
             ConsoleOut("\tDynamic 2 collection complete.\r\n\r\n");
+
+            // Disable Dynamic
+            OrbitNetwork.Dynamic.Enabled = false;
+
+            // Check if error occured
+            ConsoleOut(String.Format("Dynamic Error Value: {0}",
+                Orbit.GetErrorString((int)OrbitNetwork.Dynamic.DynamicData.CollectionStatus)));
         }
 
         #endregion
