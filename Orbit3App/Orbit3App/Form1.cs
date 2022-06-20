@@ -9,6 +9,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Windows.Forms.DataVisualization.Charting;
 using Solartron.Orbit3;
 
 namespace Orbit3App
@@ -37,115 +38,7 @@ namespace Orbit3App
             this.Text = "Orbit3 Measurement App V" + Assembly.GetExecutingAssembly().GetName().Version.ToString();
         }
 
-        #region Data acauisition
-
-        /// <summary>
-        /// Changes network speed to ultraHigh.
-        /// Configures dynamic2 on the networks, enables, prepares and carries out a collection of syncs.
-        /// Resets the speed back to low.
-        /// </summary>
-        /// <param name="OrbitNetwork"></param>
-        /// <returns>List of modules with their names and reads arrays</returns>
-        private List<Module> DataAcquisition(OrbitNetwork OrbitNetwork)
-        {
-            // Set speed to UltraHigh
-            OrbitNetwork.NetSpeed = eNetSpeed.UltraHigh;
-            ConsoleOut(OrbitNetwork.Description + "'s network speed changed: " + OrbitNetwork.NetSpeed + "\r\n");
-
-            // Network configuration
-            OrbitNetwork.Dynamic.DynamicRate = eDynamicRate.Dynamic2Custom;
-            OrbitNetwork.Dynamic.NumberOfModules = Orbit.Networks[NETINDEX].Modules.Count;
-            OrbitNetwork.Dynamic.CollectionSize = ParseSyncs();
-            OrbitNetwork.Dynamic.DynamicInterval = ParseInterval();
-            OrbitNetwork.Dynamic.DynamicMode = eDynamicMode.Normal;
-
-            ConsoleOut("Dynamic 2 configuration:\r\n" +
-                "\tRate: " + OrbitNetwork.Dynamic.DynamicRate + "\r\n" +
-                "\tNumber of Modules: " + OrbitNetwork.Dynamic.NumberOfModules + "\r\n" +
-                "\tNumber of Syncs: " + OrbitNetwork.Dynamic.CollectionSize + "\r\n" +
-                "\tInterval: " + OrbitNetwork.Dynamic.DynamicInterval/1000 + " [ms]\r\n" +
-                "\tDynamic Mode: " + OrbitNetwork.Dynamic.DynamicMode + "\r\n");
-
-            // Enable Dynamic and prepare network
-            OrbitNetwork.Dynamic.Enabled = true;
-            ConsoleOut("\t" + OrbitNetwork.Description + "Dynamic 2 Enabled: " + OrbitNetwork.Dynamic.Enabled + "\r\n");
-
-            OrbitNetwork.Dynamic.Prepare();
-            ConsoleOut("\t" + OrbitNetwork.Description + "Dynamic 2 Prepared\r\n");
-
-            // START!
-            Orbit.StartAllDynamic();
-            ConsoleOut("\tDynamic 2 collection started...\r\n");
-
-            while (Orbit.DynamicInProgress)
-            {
-                Thread.Sleep(100);
-            }
-            ConsoleOut("\tDynamic 2 collection complete.\r\n\r\n");
-
-            // Disable Dynamic
-            OrbitNetwork.Dynamic.Enabled = false;
-
-            // Set speed to Low
-            OrbitNetwork.NetSpeed = eNetSpeed.Low;
-            ConsoleOut(OrbitNetwork.Description + "'s network speed changed: " + OrbitNetwork.NetSpeed + "\r\n");
-
-            // Check if error occured
-            ConsoleOut(String.Format("Dynamic Error Value: {0}",
-                Orbit.GetErrorString((int)OrbitNetwork.Dynamic.DynamicData.CollectionStatus)));
-
-            int ReadCount = OrbitNetwork.Dynamic.DynamicData.ReadingCount;
-            int ModuleCount = OrbitNetwork.Dynamic.DynamicData.ModuleCount;
-            OrbitDynamicData DynamicData = OrbitNetwork.Dynamic.DynamicData;
-
-            List<Module> Modules = new List<Module>(ModuleCount);
-            
-            // Add new module to list and set its name and array of reads
-            for (int ModuleIndex = 0; ModuleIndex < ModuleCount; ModuleIndex++)
-            {
-                Modules.Add(new Module(ReadCount));
-                Modules[ModuleIndex].Name = Orbit.Networks[NETINDEX].Modules[ModuleIndex].ModuleID;
-
-                for (int BlockIndex = 0; BlockIndex < ReadCount; BlockIndex++)
-                {
-                    Modules[ModuleIndex].Reads[BlockIndex] = DynamicData[ModuleIndex, BlockIndex];
-                }
-            }
-
-            return Modules;
-        }
-
-        /// <summary>
-        /// Displays results of dynamic2 collection in text box.
-        /// </summary>
-        /// <param name="modules">List of modules from which results are displayed.</param>
-        private void PrintResults(List<Module> modules)
-        {
-            String Headings = "\r\nRead#\t";
-            String Results = string.Empty;
-            int ReadCount = modules[0].Reads.Length;
-
-            foreach (Module module in modules)
-            {
-                Headings += module.Name + "\t";
-            }
-
-            for (int i = 0; i < ReadCount; i++)
-            {
-                Results += (i+1) + "\t";
-                foreach (Module module in modules)
-                {
-                    Results += string.Format("{0:0.000000}", module.Reads[i]) + "\t\t";
-                }
-                Results += "\r\n";    
-            }
-                        
-            ConsoleOut(Headings + "\r\n");
-            ConsoleOut(Results + "\r\n");
-        }
-
-        #endregion
-
+        
         #region Buttons
         /// <summary>
         /// Carries out the measurement. Displays results and chart.
@@ -167,6 +60,8 @@ namespace Orbit3App
                         Modules = DataAcquisition(OrbitNetwork);
 
                         PrintResults(Modules);
+
+                        GenerateChart(Modules);
                     }
                 }
                 catch (Exception Ex)
@@ -417,6 +312,170 @@ namespace Orbit3App
 
         private int[] ArrayOfReadingInCounts;
         private double[] ArrayOfReadingInUnits;
+
+
+        #region Data acauisition and chart
+
+        /// <summary>
+        /// Changes network speed to ultraHigh.
+        /// Configures dynamic2 on the networks, enables, prepares and carries out a collection of syncs.
+        /// Resets the speed back to low.
+        /// </summary>
+        /// <param name="OrbitNetwork"></param>
+        /// <returns>List of modules with their names and reads arrays</returns>
+        private List<Module> DataAcquisition(OrbitNetwork OrbitNetwork)
+        {
+            // Set speed to UltraHigh
+            OrbitNetwork.NetSpeed = eNetSpeed.UltraHigh;
+            ConsoleOut(OrbitNetwork.Description + "'s network speed changed: " + OrbitNetwork.NetSpeed + "\r\n");
+
+            // Network configuration
+            OrbitNetwork.Dynamic.DynamicRate = eDynamicRate.Dynamic2Custom;
+            OrbitNetwork.Dynamic.NumberOfModules = Orbit.Networks[NETINDEX].Modules.Count;
+            OrbitNetwork.Dynamic.CollectionSize = ParseSyncs();
+            OrbitNetwork.Dynamic.DynamicInterval = ParseInterval();
+            OrbitNetwork.Dynamic.DynamicMode = eDynamicMode.Normal;
+
+            ConsoleOut("Dynamic 2 configuration:\r\n" +
+                "\tRate: " + OrbitNetwork.Dynamic.DynamicRate + "\r\n" +
+                "\tNumber of Modules: " + OrbitNetwork.Dynamic.NumberOfModules + "\r\n" +
+                "\tNumber of Syncs: " + OrbitNetwork.Dynamic.CollectionSize + "\r\n" +
+                "\tInterval: " + OrbitNetwork.Dynamic.DynamicInterval / 1000 + " [ms]\r\n" +
+                "\tDynamic Mode: " + OrbitNetwork.Dynamic.DynamicMode + "\r\n");
+
+            // Enable Dynamic and prepare network
+            OrbitNetwork.Dynamic.Enabled = true;
+            ConsoleOut("\t" + OrbitNetwork.Description + "Dynamic 2 Enabled: " + OrbitNetwork.Dynamic.Enabled + "\r\n");
+
+            OrbitNetwork.Dynamic.Prepare();
+            ConsoleOut("\t" + OrbitNetwork.Description + "Dynamic 2 Prepared\r\n");
+
+            // START!
+            Orbit.StartAllDynamic();
+            ConsoleOut("\tDynamic 2 collection started...\r\n");
+
+            while (Orbit.DynamicInProgress)
+            {
+                Thread.Sleep(100);
+            }
+            ConsoleOut("\tDynamic 2 collection complete.\r\n\r\n");
+
+            // Disable Dynamic
+            OrbitNetwork.Dynamic.Enabled = false;
+
+            // Set speed to Low
+            OrbitNetwork.NetSpeed = eNetSpeed.Low;
+            ConsoleOut(OrbitNetwork.Description + "'s network speed changed: " + OrbitNetwork.NetSpeed + "\r\n");
+
+            // Check if error occured
+            ConsoleOut(String.Format("Dynamic Error Value: {0}",
+                Orbit.GetErrorString((int)OrbitNetwork.Dynamic.DynamicData.CollectionStatus)));
+
+            int ReadCount = OrbitNetwork.Dynamic.DynamicData.ReadingCount;
+            int ModuleCount = OrbitNetwork.Dynamic.DynamicData.ModuleCount;
+            OrbitDynamicData DynamicData = OrbitNetwork.Dynamic.DynamicData;
+
+            List<Module> Modules = new List<Module>(ModuleCount);
+
+            // Add new module to list and set its name and array of reads
+            for (int ModuleIndex = 0; ModuleIndex < ModuleCount; ModuleIndex++)
+            {
+                Modules.Add(new Module(ReadCount));
+                Modules[ModuleIndex].Name = Orbit.Networks[NETINDEX].Modules[ModuleIndex].ModuleID;
+
+                for (int BlockIndex = 0; BlockIndex < ReadCount; BlockIndex++)
+                {
+                    Modules[ModuleIndex].Reads[BlockIndex] = DynamicData[ModuleIndex, BlockIndex];
+                }
+            }
+
+            return Modules;
+        }
+
+        /// <summary>
+        /// Displays results of dynamic2 collection in text box.
+        /// </summary>
+        /// <param name="modules">List of modules from which results are displayed.</param>
+        private void PrintResults(List<Module> modules)
+        {
+            String Headings = "\r\nRead#\t";
+            String Results = string.Empty;
+            int ReadCount = modules[0].Reads.Length;
+
+            foreach (Module module in modules)
+            {
+                Headings += module.Name + "\t";
+            }
+
+            for (int i = 0; i < ReadCount; i++)
+            {
+                Results += (i + 1) + "\t";
+                foreach (Module module in modules)
+                {
+                    Results += string.Format("{0:0.000000}", module.Reads[i]) + "\t\t";
+                }
+                Results += "\r\n";
+            }
+
+            ConsoleOut(Headings + "\r\n");
+            ConsoleOut(Results + "\r\n");
+        }
+
+        private void GenerateChart(List<Module> modules)
+        {
+            ChartSetup();
+            foreach (Module module in modules)
+            {
+                AddSeriesToChart(module);
+            }
+        }
+
+        /// <summary>
+        /// Adding series to chart by getting the array of results from Module.
+        /// </summary>
+        /// <param name="module"></param>
+        private void AddSeriesToChart(Module module)
+        {
+            chart1.Series.Add(new Series(module.Name));
+            chart1.Series.FindByName(module.Name).Points.DataBindY(module.Reads);
+            chart1.Series.FindByName(module.Name).ChartType = SeriesChartType.FastLine;
+            chart1.Series.FindByName(module.Name).BorderWidth = 2;
+        }
+
+        /// <summary>
+        /// Chart settings.
+        /// </summary>
+        private void ChartSetup()
+        {
+            chart1.Series.Clear();
+            chart1.ResetAutoValues();
+            chart1.Titles.Clear();
+            chart1.ChartAreas[0].AxisX.Title = "Reading";
+            chart1.ChartAreas[0].AxisY.Title = "Results";
+            chart1.ChartAreas[0].AxisX.TitleFont = new Font("Trebuchet MS", 10F, FontStyle.Bold);
+            chart1.ChartAreas[0].AxisY.TitleFont = new Font("Trebuchet MS", 10F, FontStyle.Bold);
+
+            chart1.ChartAreas[0].AxisY.LabelStyle.Font = new Font("Trebuchet MS", 10F, FontStyle.Regular);
+            chart1.ChartAreas[0].AxisX.LabelStyle.Font = new Font("Trebuchet MS", 10F, FontStyle.Regular);
+
+            chart1.ChartAreas[0].AxisX.Minimum = 0;
+            chart1.ChartAreas[0].AxisX.Maximum = ParseSyncs();
+            //chart1.ChartAreas[0].AxisX.Interval = 5;
+            chart1.ChartAreas[0].AxisX.MinorGrid.Enabled = true;
+            //chart1.ChartAreas[0].AxisY.MinorGrid.Interval = 1;
+            chart1.ChartAreas[0].AxisX.MinorGrid.LineDashStyle = ChartDashStyle.Solid;
+            chart1.ChartAreas[0].AxisX.MinorGrid.LineColor = Color.LightGray;
+            chart1.ChartAreas[0].AxisX.MajorGrid.LineColor = Color.DarkGray;
+
+            chart1.ChartAreas[0].AxisY.Interval = 0.5;
+            chart1.ChartAreas[0].AxisY.MinorGrid.Enabled = true;
+            chart1.ChartAreas[0].AxisY.MinorGrid.Interval = 0.5;
+            chart1.ChartAreas[0].AxisY.MinorGrid.LineDashStyle = ChartDashStyle.Solid;
+            chart1.ChartAreas[0].AxisY.MinorGrid.LineColor = Color.LightGray;
+            chart1.ChartAreas[0].AxisY.MajorGrid.LineColor = Color.DarkGray;
+        }
+
+        #endregion
 
         #region Private helpers
 
