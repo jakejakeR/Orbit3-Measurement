@@ -9,6 +9,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Windows.Forms.DataVisualization.Charting;
 using Solartron.Orbit3;
 
 namespace Orbit3App
@@ -37,7 +38,7 @@ namespace Orbit3App
             this.Text = "Orbit3 Measurement App V" + Assembly.GetExecutingAssembly().GetName().Version.ToString();
         }
 
-        #region Data acauisition
+        #region Data acauisition and chart
 
         /// <summary>
         /// Changes network speed to ultraHigh.
@@ -144,6 +145,41 @@ namespace Orbit3App
             ConsoleOut(Results + "\r\n");
         }
 
+        private void GenerateChart(List<Module> modules)
+        {
+            ChartSetup();
+        }
+
+        private void ChartSetup()
+        {
+            chart1.Series.Clear();
+            chart1.ResetAutoValues();
+            chart1.Titles.Clear();
+            chart1.ChartAreas[0].AxisX.Title = "Reading";
+            chart1.ChartAreas[0].AxisY.Title = "Results";
+            chart1.ChartAreas[0].AxisX.TitleFont = new Font("Trebuchet MS", 10F, FontStyle.Bold);
+            chart1.ChartAreas[0].AxisY.TitleFont = new Font("Trebuchet MS", 10F, FontStyle.Bold);
+
+            chart1.ChartAreas[0].AxisY.LabelStyle.Font = new Font("Trebuchet MS", 10F, FontStyle.Regular);
+            chart1.ChartAreas[0].AxisX.LabelStyle.Font = new Font("Trebuchet MS", 10F, FontStyle.Regular);
+
+            chart1.ChartAreas[0].AxisX.Minimum = 0;
+            chart1.ChartAreas[0].AxisX.Maximum = ParseSyncs();
+            //chart1.ChartAreas[0].AxisX.Interval = 5;
+            chart1.ChartAreas[0].AxisX.MinorGrid.Enabled = true;
+            //chart1.ChartAreas[0].AxisY.MinorGrid.Interval = 1;
+            chart1.ChartAreas[0].AxisX.MinorGrid.LineDashStyle = ChartDashStyle.Solid;
+            chart1.ChartAreas[0].AxisX.MinorGrid.LineColor = Color.LightGray;
+            chart1.ChartAreas[0].AxisX.MajorGrid.LineColor = Color.DarkGray;
+
+            chart1.ChartAreas[0].AxisY.Interval = 0.5;
+            chart1.ChartAreas[0].AxisY.MinorGrid.Enabled = true;
+            chart1.ChartAreas[0].AxisY.MinorGrid.Interval = 0.5;
+            chart1.ChartAreas[0].AxisY.MinorGrid.LineDashStyle = ChartDashStyle.Solid;
+            chart1.ChartAreas[0].AxisY.MinorGrid.LineColor = Color.LightGray;
+            chart1.ChartAreas[0].AxisY.MajorGrid.LineColor = Color.DarkGray;
+        }
+
         #endregion
 
         #region Buttons
@@ -167,6 +203,8 @@ namespace Orbit3App
                         Modules = DataAcquisition(OrbitNetwork);
 
                         PrintResults(Modules);
+
+                        GenerateChart(Modules);
                     }
                 }
                 catch (Exception Ex)
