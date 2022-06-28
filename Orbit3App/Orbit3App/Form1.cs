@@ -37,7 +37,8 @@ namespace Orbit3App
             }
 
             InitializeComponent();
-            this.Text = "Orbit3 Measurement App V" + Assembly.GetExecutingAssembly().GetName().Version.ToString();
+            String version = Assembly.GetExecutingAssembly().GetName().Version.ToString();
+            this.Text = "Orbit3 Measurement App V" + version;
         }
         
         #region Buttons
