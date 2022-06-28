@@ -20,6 +20,8 @@ namespace Orbit3App
         OrbitServer Orbit;
         const int NETINDEX = 0;
         const String NOTCONNECTED = "Not connected to Orbit\r\n";
+        const String FRONT_PROBE = "379AR40503";
+        const String BACK_PROBE = "379AR40504";
 
         public Form1()
         {
