@@ -386,18 +386,37 @@ namespace Orbit3App
             int ModuleCount = OrbitNetwork.Dynamic.DynamicData.ModuleCount;
             OrbitDynamicData DynamicData = OrbitNetwork.Dynamic.DynamicData;
 
-            List<Module> Modules = new List<Module>(ModuleCount);
+            List<Module> Modules = new List<Module>(2);
 
             // Add new module to list and set its name and array of reads
             for (int ModuleIndex = 0; ModuleIndex < ModuleCount; ModuleIndex++)
             {
-                Modules.Add(new Module(ReadCount));
-                Modules[ModuleIndex].Name = Orbit.Networks[NETINDEX].Modules[ModuleIndex].ModuleID;
+                String ModuleID = Orbit.Networks[NETINDEX].Modules[ModuleIndex].ModuleID;
 
-                for (int BlockIndex = 0; BlockIndex < ReadCount; BlockIndex++)
+                if (ModuleID.Equals(FRONT_PROBE) || ModuleID.Equals(BACK_PROBE))
                 {
-                    Modules[ModuleIndex].Reads[BlockIndex] = DynamicData[ModuleIndex, BlockIndex];
+                    Modules.Add(new Module(ReadCount));
+
+                    switch (ModuleID)
+                    {
+                        case FRONT_PROBE:
+                            Modules[ModuleIndex].Name = "FRONT PROBE";
+                            break;
+                        case BACK_PROBE:
+                            Modules[ModuleIndex].Name = "BACK PROBE";
+                            break ;
+                        default:
+                            break;
+                    }
+
+                    //Modules[ModuleIndex].Name = Orbit.Networks[NETINDEX].Modules[ModuleIndex].ModuleID;
+
+                    for (int BlockIndex = 0; BlockIndex < ReadCount; BlockIndex++)
+                    {
+                        Modules[ModuleIndex].Reads[BlockIndex] = DynamicData[ModuleIndex, BlockIndex];
+                    }
                 }
+                             
             }
 
             return Modules;
