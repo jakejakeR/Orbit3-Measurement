@@ -412,7 +412,7 @@ namespace Orbit3App
 
                     for (int BlockIndex = 0; BlockIndex < ReadCount; BlockIndex++)
                     {
-                        Modules[counter].Reads[BlockIndex] = DynamicData[ModuleIndex, BlockIndex];
+                        Modules[counter].Reads[BlockIndex] = ((1.5625) * DynamicData[ModuleIndex, BlockIndex]) - (6.25);
                     }
 
                     counter++;
@@ -506,13 +506,13 @@ namespace Orbit3App
             chart1.Series.Clear();
             chart1.ResetAutoValues();
             chart1.Titles.Clear();
-            chart1.ChartAreas[0].AxisX.Title = "Reading";
-            chart1.ChartAreas[0].AxisY.Title = "Results";
-            chart1.ChartAreas[0].AxisX.TitleFont = new Font("Trebuchet MS", 10F, FontStyle.Bold);
-            chart1.ChartAreas[0].AxisY.TitleFont = new Font("Trebuchet MS", 10F, FontStyle.Bold);
+            chart1.ChartAreas[0].AxisX.Title = "SYNCS";
+            chart1.ChartAreas[0].AxisY.Title = "VIBRATION VELOCITY [mm/s]";
+            chart1.ChartAreas[0].AxisX.TitleFont = new Font("Trebuchet MS", 12F, FontStyle.Bold);
+            chart1.ChartAreas[0].AxisY.TitleFont = new Font("Trebuchet MS", 12F, FontStyle.Bold);
 
-            chart1.ChartAreas[0].AxisY.LabelStyle.Font = new Font("Trebuchet MS", 10F, FontStyle.Regular);
-            chart1.ChartAreas[0].AxisX.LabelStyle.Font = new Font("Trebuchet MS", 10F, FontStyle.Regular);
+            chart1.ChartAreas[0].AxisY.LabelStyle.Font = new Font("Trebuchet MS", 12F, FontStyle.Regular);
+            chart1.ChartAreas[0].AxisX.LabelStyle.Font = new Font("Trebuchet MS", 12F, FontStyle.Regular);
 
             chart1.ChartAreas[0].AxisX.Minimum = 0;
             chart1.ChartAreas[0].AxisX.Maximum = ParseSyncs();

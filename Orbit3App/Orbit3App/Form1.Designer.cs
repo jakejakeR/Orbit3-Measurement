@@ -44,6 +44,7 @@
             this.chart1 = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.ButtonClose = new System.Windows.Forms.Button();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.ButtonClearConsole = new System.Windows.Forms.Button();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.ButtonPing = new System.Windows.Forms.Button();
             this.ButtonNotifyAdd = new System.Windows.Forms.Button();
@@ -54,7 +55,6 @@
             this.TextBoxOutput = new System.Windows.Forms.TextBox();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.ButtonClearConsole = new System.Windows.Forms.Button();
             this.tableLayoutPanel2.SuspendLayout();
             this.panel4.SuspendLayout();
             this.panel3.SuspendLayout();
@@ -220,6 +220,18 @@
             this.panel2.Size = new System.Drawing.Size(558, 51);
             this.panel2.TabIndex = 5;
             // 
+            // ButtonClearConsole
+            // 
+            this.ButtonClearConsole.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+            this.ButtonClearConsole.Font = new System.Drawing.Font("Calibri", 12F);
+            this.ButtonClearConsole.Location = new System.Drawing.Point(3, 3);
+            this.ButtonClearConsole.Name = "ButtonClearConsole";
+            this.ButtonClearConsole.Size = new System.Drawing.Size(109, 44);
+            this.ButtonClearConsole.TabIndex = 3;
+            this.ButtonClearConsole.Text = "Clear Console";
+            this.ButtonClearConsole.UseVisualStyleBackColor = true;
+            this.ButtonClearConsole.Click += new System.EventHandler(this.ButtonClearConsole_Click);
+            // 
             // pictureBox1
             // 
             this.pictureBox1.Anchor = System.Windows.Forms.AnchorStyles.Right;
@@ -361,22 +373,12 @@
             this.panel1.Size = new System.Drawing.Size(450, 537);
             this.panel1.TabIndex = 4;
             // 
-            // ButtonClearConsole
-            // 
-            this.ButtonClearConsole.Font = new System.Drawing.Font("Calibri", 12F);
-            this.ButtonClearConsole.Location = new System.Drawing.Point(3, 3);
-            this.ButtonClearConsole.Name = "ButtonClearConsole";
-            this.ButtonClearConsole.Size = new System.Drawing.Size(109, 44);
-            this.ButtonClearConsole.TabIndex = 3;
-            this.ButtonClearConsole.Text = "Clear Console";
-            this.ButtonClearConsole.UseVisualStyleBackColor = true;
-            this.ButtonClearConsole.Click += new System.EventHandler(this.ButtonClearConsole_Click);
-            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Window;
+            this.CancelButton = this.ButtonClearConsole;
             this.ClientSize = new System.Drawing.Size(1008, 537);
             this.Controls.Add(this.panel3);
             this.Controls.Add(this.panel2);
