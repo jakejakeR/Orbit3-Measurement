@@ -387,12 +387,12 @@ namespace Orbit3App
             OrbitDynamicData DynamicData = OrbitNetwork.Dynamic.DynamicData;
 
             List<Module> Modules = new List<Module>();
+            int counter = 0;
 
             // Add new module to list and set its name and array of reads
             for (int ModuleIndex = 0; ModuleIndex < ModuleCount; ModuleIndex++)
             {
                 String ModuleID = Orbit.Networks[NETINDEX].Modules[ModuleIndex].ModuleID;
-                int counter = 0;
 
                 if (ModuleID.Equals(FRONT_PROBE) || ModuleID.Equals(BACK_PROBE))
                 {
@@ -414,6 +414,8 @@ namespace Orbit3App
                     {
                         Modules[counter].Reads[BlockIndex] = DynamicData[ModuleIndex, BlockIndex];
                     }
+
+                    counter++;
                 }
                              
             }
