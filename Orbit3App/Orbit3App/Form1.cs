@@ -394,7 +394,7 @@ namespace Orbit3App
                 String ModuleID = Orbit.Networks[NETINDEX].Modules[ModuleIndex].ModuleID;
                 int counter = 0;
 
-                if (ModuleID.Equals(FRONT_PROBE) || ModuleID.Equals(BACK_PROBE) || ModuleID.Equals(TempModule))
+                if (ModuleID.Equals(FRONT_PROBE) || ModuleID.Equals(BACK_PROBE))
                 {
                     Modules.Add(new Module(ReadCount));
 
